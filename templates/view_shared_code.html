@@ -1,31 +1,183 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xem mã được chia sẻ</title>
+    <title>Xem và Làm đẹp Mã được Chia sẻ</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+    <style>
+        .CodeMirror {
+            height: auto;
+            min-height: 300px;
+            max-height: calc(100vh - 250px);
+            font-size: 14px;
+        }
+
+        @media (min-width: 640px) {
+            .CodeMirror {
+                font-size: 16px;
+            }
+        }
+
+        .cm-s-dracula.CodeMirror,
+        .cm-s-monokai.CodeMirror,
+        .cm-s-solarized.CodeMirror,
+        .cm-s-material.CodeMirror {
+            background-color: rgba(40, 42, 54, 0.95);
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-center mb-8">Mã Python được chia sẻ</h1>
-        <div class="bg-white shadow-md rounded-lg p-6">
-            <div id="shared-code"></div>
+
+<body
+    class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 min-h-screen flex flex-col justify-center items-center p-4 sm:p-6 lg:p-8">
+    <div class="container mx-auto max-w-4xl w-full">
+        <div class="bg-white shadow-2xl rounded-lg overflow-hidden">
+            <div class="p-4 bg-gray-800 text-white border-b flex flex-wrap justify-between items-center">
+                <div class="flex flex-wrap space-x-2 mb-2 sm:mb-0">
+                    <button id="copy-btn"
+                        class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm transition duration-300 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                        Sao chép
+                    </button>
+                    <button id="beautify-btn"
+                        class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm transition duration-300 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg>
+                        Làm đẹp mã
+                    </button>
+                    <button id="download-btn"
+                        class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm transition duration-300 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        Tải xuống
+                    </button>
+                </div>
+                <div class="flex items-center mt-2 sm:mt-0">
+                    <label for="theme-select" class="mr-2 text-sm">Giao diện:</label>
+                    <select id="theme-select"
+                        class="bg-gray-700 text-white border border-gray-600 rounded px-2 py-1 text-sm">
+                        <option value="dracula">Dracula</option>
+                        <option value="monokai">Monokai</option>
+                        <option value="solarized">Solarized</option>
+                        <option value="material">Material</option>
+                    </select>
+                </div>
+            </div>
+            <div id="shared-code" class="p-4"></div>
+            <div class="bg-gray-800 text-white p-4 flex justify-between items-center text-sm">
+                <div>Dòng: <span id="line-count" class="font-semibold">0</span></div>
+                <div>Ký tự: <span id="char-count" class="font-semibold">0</span></div>
+            </div>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.0/beautify-python.min.js"></script>
     <script>
         const editor = CodeMirror(document.getElementById("shared-code"), {
             value: `{{ code | safe }}`,
             mode: "python",
             theme: "dracula",
             lineNumbers: true,
-            readOnly: true
+            readOnly: false,
+            lineWrapping: true,
+            viewportMargin: Infinity
         });
+
+        function updateCounts() {
+            document.getElementById('line-count').textContent = editor.lineCount();
+            document.getElementById('char-count').textContent = editor.getValue().length;
+        }
+        updateCounts();
+        editor.on('change', updateCounts);
+
+        document.getElementById('copy-btn').addEventListener('click', function () {
+            const code = editor.getValue();
+            navigator.clipboard.writeText(code).then(function () {
+                alert('Đã sao chép mã vào clipboard!');
+            }, function (err) {
+                console.error('Không thể sao chép: ', err);
+            });
+        });
+
+        document.getElementById('beautify-btn').addEventListener('click', function () {
+            const code = editor.getValue();
+            const beautifiedCode = js_beautify(code, {
+                indent_size: 4,
+                indent_char: ' ',
+                max_preserve_newlines: 2,
+                preserve_newlines: true,
+                keep_array_indentation: false,
+                break_chained_methods: false,
+                indent_scripts: 'normal',
+                brace_style: 'collapse',
+                space_before_conditional: true,
+                unescape_strings: false,
+                jslint_happy: false,
+                end_with_newline: true,
+                wrap_line_length: 0,
+                indent_inner_html: false,
+                comma_first: false,
+                e4x: false,
+                indent_empty_lines: false
+            });
+            editor.setValue(beautifiedCode);
+        });
+
+        document.getElementById('download-btn').addEventListener('click', function () {
+            const code = editor.getValue();
+            const blob = new Blob([code], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'shared_code.py';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+
+        document.getElementById('theme-select').addEventListener('change', function () {
+            const theme = this.value;
+            editor.setOption('theme', theme);
+        });
+
+        // Load additional themes
+        const themes = ['monokai', 'solarized', 'material'];
+        themes.forEach(theme => {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = `https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/${theme}.min.css`;
+            document.head.appendChild(link);
+        });
+
+        // Adjust CodeMirror height on window resize
+        function adjustEditorHeight() {
+            const editorElement = document.querySelector('.CodeMirror');
+            if (editorElement) {
+                const viewportHeight = window.innerHeight;
+                const editorTop = editorElement.getBoundingClientRect().top;
+                const maxHeight = viewportHeight - editorTop - 100; // 100px buffer
+                editorElement.style.height = `${Math.max(300, Math.min(maxHeight, 600))}px`;
+            }
+        }
+
+        window.addEventListener('resize', adjustEditorHeight);
+        window.addEventListener('load', adjustEditorHeight);
+        adjustEditorHeight(); // Initial adjustment
     </script>
 </body>
+
 </html>

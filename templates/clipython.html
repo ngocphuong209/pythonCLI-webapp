@@ -330,12 +330,10 @@ for i in range(10):
     print(fibonacci(i), end=" ")
 `);
 
-        // Adjust CodeMirror size on window resize
         window.addEventListener('resize', function() {
             editor.refresh();
         });
 
-        // Function to add a new library to the list
         function addLibrary(libraryName) {
             const libraryList = document.getElementById('libraryList');
             const li = document.createElement('li');
@@ -343,8 +341,6 @@ for i in range(10):
             libraryList.appendChild(li);
         }
 
-        // Example of adding a new library dynamically
-        // addLibrary('tensorflow');
     </script>
 </body>
 </html>
