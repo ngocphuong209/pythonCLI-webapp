@@ -63,3 +63,13 @@ Chúng tôi luôn chào đón mọi đóng góp từ cộng đồng! Nếu bạn
 - Emai:  [tranminhtan4953@gmail.com](mailto:tranminhtan4953@gmail.com)
 - Full Link contact: [Linktree](https://linktr.ee/tanbaycu)
 
+
+
+## Nguyên lý hoạt động
+
+![Tiếng Việt](images/tiengviet.png)
+
+
+
+
+![English](images/english.png)
