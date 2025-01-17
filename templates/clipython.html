@@ -278,7 +278,7 @@
                 });
                 const result = await response.json();
                 if (result.share_url) {
-                    const shareUrl = `https://tanbaycu.vercel.app${result.share_url}`;
+                    const shareUrl = `https://python-cli-webapp.vercel.app${result.share_url}`;
                     navigator.clipboard.writeText(shareUrl).then(() => {
                         alert(`Mã của bạn đã được chia sẻ. URL đã được sao chép vào clipboard: ${shareUrl}`);
                     }, (err) => {
