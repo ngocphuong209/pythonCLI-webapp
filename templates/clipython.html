@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,60 +12,60 @@
     <link rel="icon" type="image/png" href="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
-        
+
         body {
             font-family: 'Fira Code', monospace;
         }
-        
+
         .CodeMirror {
             height: 100%;
             font-size: 14px;
         }
-        
+
         @media (max-width: 640px) {
             .CodeMirror {
                 font-size: 12px;
             }
         }
-        
+
         .cm-s-nord.CodeMirror {
             background-color: #2e3440;
             color: #d8dee9;
         }
-        
+
         .cm-s-nord .CodeMirror-gutters {
             background-color: #3b4252;
             border-right: 1px solid #4c566a;
         }
-        
+
         .cm-s-nord .CodeMirror-linenumber {
             color: #4c566a;
         }
-        
+
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
-        
+
         .custom-scrollbar::-webkit-scrollbar-track {
             background: #3b4252;
         }
-        
+
         .custom-scrollbar::-webkit-scrollbar-thumb {
             background: #4c566a;
             border-radius: 3px;
         }
-        
+
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #5e81ac;
         }
-        
+
         .glass-effect {
             background: rgba(46, 52, 64, 0.8);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(76, 86, 106, 0.5);
         }
-        
+
         .sidebar-transition {
             transition: all 0.3s ease-in-out;
         }
@@ -94,18 +95,45 @@
                 bottom: 0;
                 left: 0;
                 right: 0;
-                background-color: #2e3440;
+                background-color: rgba(46, 52, 64, 0.9);
+                backdrop-filter: blur(10px);
                 padding: 0.5rem;
                 display: flex;
                 justify-content: space-around;
-                z-index: 50;
+                z-index: 1000;
             }
+
+            .action-buttons button {
+                flex: 1;
+                padding: 0.5rem;
+                font-size: 0.75rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: auto;
+            }
+
+            .action-buttons button i {
+                font-size: 1rem;
+                margin-bottom: 0.25rem;
+            }
+
+            .action-buttons button span {
+                display: block;
+            }
+
             #editor {
                 height: calc(100vh - 120px);
+            }
+
+            #resultArea {
+                bottom: 60px;
             }
         }
     </style>
 </head>
+
 <body class="bg-gradient-to-br from-gray-900 to-blue-900 text-white font-sans">
     <div class="flex flex-col min-h-screen">
         <!-- Top bar -->
@@ -117,24 +145,37 @@
                 <h1 class="text-xl font-bold hidden sm:block">Python Web IDE</h1>
             </div>
             <div class="flex space-x-2 action-buttons sm:relative">
-                <button id="runBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center text-sm sm:text-base">
-                    <i class="fas fa-play mr-2"></i> <span class="hidden sm:inline">Chạy</span>
+                <button id="runBtn"
+                    class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center">
+                    <i class="fas fa-play"></i>
+                    <span class="hidden sm:inline ml-2">Chạy</span>
+                    <span class="sm:hidden text-xs"></span>
                 </button>
-                <button id="clearBtn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center text-sm sm:text-base">
-                    <i class="fas fa-trash-alt mr-2"></i> <span class="hidden sm:inline">Xóa</span>
+                <button id="clearBtn"
+                    class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center">
+                    <i class="fas fa-trash-alt"></i>
+                    <span class="hidden sm:inline ml-2">Xóa</span>
+                    <span class="sm:hidden text-xs"></span>
                 </button>
-                <button id="saveBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center text-sm sm:text-base">
-                    <i class="fas fa-save mr-2"></i> <span class="hidden sm:inline">Lưu</span>
+                <button id="saveBtn"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center">
+                    <i class="fas fa-save"></i>
+                    <span class="hidden sm:inline ml-2">Lưu</span>
+                    <span class="sm:hidden text-xs"></span>
                 </button>
-                <button id="shareBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center text-sm sm:text-base">
-                    <i class="fas fa-share-alt mr-2"></i> <span class="hidden sm:inline">Chia sẻ</span>
+                <button id="shareBtn"
+                    class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="hidden sm:inline ml-2">Chia sẻ</span>
+                    <span class="sm:hidden text-xs"></span>
                 </button>
             </div>
         </header>
 
         <div class="flex flex-1 overflow-hidden">
             <!-- Sidebar -->
-            <aside id="sidebar" class="w-64 bg-gray-800 text-white p-4 sidebar-transition transform -translate-x-full fixed inset-y-0 left-0 z-50 lg:relative lg:translate-x-0 overflow-y-auto">
+            <aside id="sidebar"
+                class="w-64 bg-gray-800 text-white p-4 sidebar-transition transform -translate-x-full fixed inset-y-0 left-0 z-50 lg:relative lg:translate-x-0 overflow-y-auto">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold">Python IDE</h2>
                     <button id="closeSidebarBtn" class="lg:hidden text-white focus:outline-none">
@@ -142,26 +183,32 @@
                     </button>
                 </div>
                 <nav class="space-y-4">
-                    <button id="settingsBtn" class="w-full flex items-center justify-between p-2 rounded hover:bg-gray-700 transition-colors">
+                    <button id="settingsBtn"
+                        class="w-full flex items-center justify-between p-2 rounded hover:bg-gray-700 transition-colors">
                         <span><i class="fas fa-cog mr-2"></i> Cài đặt</span>
                         <i class="fas fa-chevron-right text-sm"></i>
                     </button>
-                    <button id="themeToggleBtn" class="w-full flex items-center justify-between p-2 rounded hover:bg-gray-700 transition-colors">
+                    <button id="themeToggleBtn"
+                        class="w-full flex items-center justify-between p-2 rounded hover:bg-gray-700 transition-colors">
                         <span><i class="fas fa-adjust mr-2"></i> Giao diện</span>
                         <span id="themeStatus" class="text-xs bg-blue-600 px-2 py-1 rounded">Sáng</span>
                     </button>
-                    <button id="fullscreenBtn" class="w-full flex items-center justify-between p-2 rounded hover:bg-gray-700 transition-colors">
+                    <button id="fullscreenBtn"
+                        class="w-full flex items-center justify-between p-2 rounded hover:bg-gray-700 transition-colors">
                         <span><i class="fas fa-expand-arrows-alt mr-2"></i> Toàn màn hình</span>
                     </button>
                 </nav>
                 <div id="advancedOptions" class="mt-6 space-y-4 hidden">
                     <h3 class="text-lg font-semibold">Tùy chọn nâng cao</h3>
                     <div class="flex items-center space-x-3">
-                        <input type="checkbox" id="inputRequired" class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                        <input type="checkbox" id="inputRequired"
+                            class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
                         <label for="inputRequired" class="text-sm">Yêu cầu nhập dữ liệu</label>
                     </div>
                     <div id="inputValueContainer" class="hidden">
-                        <textarea id="inputValue" class="w-full p-2 bg-gray-700 border border-gray-600 rounded resize-y custom-scrollbar text-white text-sm" rows="3" placeholder="Nhập các giá trị, mỗi giá trị trên một dòng..."></textarea>
+                        <textarea id="inputValue"
+                            class="w-full p-2 bg-gray-700 border border-gray-600 rounded resize-y custom-scrollbar text-white text-sm"
+                            rows="3" placeholder="Nhập các giá trị, mỗi giá trị trên một dòng..."></textarea>
                     </div>
                 </div>
                 <div class="mt-6">
@@ -193,7 +240,8 @@
                     <i class="fas fa-chevron-up"></i>
                 </button>
             </div>
-            <pre id="resultContent" class="p-4 bg-gray-900 text-sm overflow-y-auto custom-scrollbar text-green-400"></pre>
+            <pre id="resultContent"
+                class="p-4 bg-gray-900 text-sm overflow-y-auto custom-scrollbar text-green-400"></pre>
         </div>
     </div>
 
@@ -257,27 +305,27 @@
             sidebar.classList.add("-translate-x-full");
         });
 
-        inputRequired.addEventListener("change", function() {
+        inputRequired.addEventListener("change", function () {
             inputValueContainer.style.display = this.checked ? "block" : "none";
         });
 
-        settingsBtn.addEventListener("click", function() {
+        settingsBtn.addEventListener("click", function () {
             advancedOptions.classList.toggle("hidden");
             settingsBtn.querySelector("i:last-child").classList.toggle("fa-chevron-down");
             settingsBtn.querySelector("i:last-child").classList.toggle("fa-chevron-right");
         });
 
-        themeToggleBtn.addEventListener("click", function() {
+        themeToggleBtn.addEventListener("click", function () {
             currentTheme = currentTheme === 'nord' ? 'default' : 'nord';
             editor.setOption("theme", currentTheme);
             document.body.classList.toggle("dark");
             themeStatus.textContent = currentTheme === 'nord' ? 'Tối' : 'Sáng';
         });
 
-        runBtn.addEventListener("click", async function() {
+        runBtn.addEventListener("click", async function () {
             const code = editor.getValue();
             const inputValue = document.getElementById("inputValue").value;
-    
+
             try {
                 runBtn.disabled = true;
                 runBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> <span class="hidden sm:inline">Đang chạy...</span>';
@@ -291,7 +339,7 @@
                         input_values: inputRequired.checked ? inputValue.split("\n") : []
                     }),
                 });
-    
+
                 // Kiểm tra kiểu nội dung của phản hồi
                 const contentType = response.headers.get("content-type");
                 if (contentType && contentType.indexOf("application/json") !== -1) {
@@ -300,7 +348,7 @@
                     resultContent.style.display = "block";
                     toggleResult.innerHTML = '<i class="fas fa-chevron-down"></i>';
                     resultContent.textContent = result.output;
-    
+
                     if (result.error) {
                         resultContent.classList.add("text-red-500");
                         resultContent.classList.remove("text-green-400");
@@ -318,7 +366,7 @@
                     resultContent.classList.add("text-red-500");
                     resultContent.classList.remove("text-green-400");
                 }
-    
+
                 // Cuộn xuống cuối kết quả
                 resultContent.scrollTop = resultContent.scrollHeight;
             } catch (error) {
@@ -335,7 +383,7 @@
             }
         });
 
-        clearBtn.addEventListener("click", function() {
+        clearBtn.addEventListener("click", function () {
             editor.setValue("");
             document.getElementById("inputValue").value = "";
             resultArea.style.height = "40px";
@@ -343,7 +391,7 @@
             toggleResult.innerHTML = '<i class="fas fa-chevron-up"></i>';
         });
 
-        saveBtn.addEventListener("click", function() {
+        saveBtn.addEventListener("click", function () {
             const code = editor.getValue();
             const blob = new Blob([code], { type: "text/plain;charset=utf-8" });
             const link = document.createElement("a");
@@ -352,9 +400,9 @@
             link.click();
         });
 
-        shareBtn.addEventListener("click", async function() {
+        shareBtn.addEventListener("click", async function () {
             const code = editor.getValue();
-            
+
             try {
                 shareBtn.disabled = true;
                 shareBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> <span class="hidden sm:inline">Đang chia sẻ...</span>';
@@ -385,7 +433,7 @@
             }
         });
 
-        fullscreenBtn.addEventListener("click", function() {
+        fullscreenBtn.addEventListener("click", function () {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen();
                 fullscreenBtn.innerHTML = '<i class="fas fa-compress-arrows-alt mr-2"></i>Thu nhỏ';
@@ -397,7 +445,7 @@
             }
         });
 
-        toggleResult.addEventListener("click", function() {
+        toggleResult.addEventListener("click", function () {
             const isExpanded = resultArea.style.height === "50vh";
             if (isExpanded) {
                 resultArea.style.height = "40px";
@@ -411,7 +459,7 @@
         });
 
         // Keyboard shortcuts
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function (event) {
             if (event.ctrlKey && event.key === 'Enter') {
                 runBtn.click();
             }
@@ -432,7 +480,7 @@ for i in range(10):
     print(fibonacci(i), end=" ")
 `);
 
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
             editor.refresh();
         });
 
@@ -449,4 +497,5 @@ for i in range(10):
 
     </script>
 </body>
+
 </html>
