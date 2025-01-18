@@ -82,8 +82,13 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .animate-slide-up {
@@ -91,8 +96,39 @@
         }
 
         @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .tanbaycu-effect {
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
+            background-size: 200% 200%;
+            animation: gradient 5s ease infinite;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: bold;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
     </style>
 </head>
@@ -100,9 +136,10 @@
 <body class="min-h-screen flex flex-col justify-between bg-gray-900">
     <header class="bg-gray-800 py-4 px-6 sm:px-10 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-blue-400">Code Viewer Pro</h1>
-            <a href="/" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full text-sm transition duration-300 flex items-center">
-                <i class="fas fa-home mr-2"></i>Trang chủ
+            <h1 class="text-2xl font-bold text-blue-400">Code Shared</h1>
+            <a href="/"
+                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full text-sm transition duration-300 flex items-center">
+                <i class="fas fa-home mr-2"></i>Home
             </a>
         </div>
     </header>
@@ -113,11 +150,13 @@
                 <div class="flex flex-wrap justify-between items-center mb-4">
                     <h2 class="text-xl font-semibold text-blue-300">Mã được Chia sẻ</h2>
                     <div class="flex space-x-2">
-                        <button id="copy-btn" class="tooltip-container bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full text-sm transition duration-300 flex items-center">
+                        <button id="copy-btn"
+                            class="tooltip-container bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full text-sm transition duration-300 flex items-center">
                             <i class="fas fa-copy mr-2"></i>Sao chép
                             <span class="tooltip">Sao chép mã vào clipboard</span>
                         </button>
-                        <button id="download-btn" class="tooltip-container bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-full text-sm transition duration-300 flex items-center">
+                        <button id="download-btn"
+                            class="tooltip-container bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-full text-sm transition duration-300 flex items-center">
                             <i class="fas fa-download mr-2"></i>Tải xuống
                             <span class="tooltip">Tải mã nguồn về máy</span>
                         </button>
@@ -125,7 +164,8 @@
                 </div>
                 <div class="flex items-center justify-end">
                     <label for="theme-select" class="mr-2 text-sm text-gray-400">Giao diện:</label>
-                    <select id="theme-select" class="bg-gray-700 text-white border border-gray-600 rounded-full px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select id="theme-select"
+                        class="bg-gray-700 text-white border border-gray-600 rounded-full px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option value="monokai">Monokai</option>
                         <option value="dracula">Dracula</option>
                         <option value="solarized">Solarized</option>
@@ -136,8 +176,10 @@
             <div id="shared-code" class="p-6 custom-scrollbar"></div>
             <div class="bg-gray-700 p-4 flex flex-wrap justify-between items-center text-sm">
                 <div class="mb-2 sm:mb-0">Dòng: <span id="line-count" class="font-semibold text-blue-300">0</span></div>
-                <div class="mb-2 sm:mb-0">Ký tự: <span id="char-count" class="font-semibold text-blue-300">0</span></div>
-                <div id="language-info" class="w-full sm:w-auto text-center sm:text-left">Ngôn ngữ: <span class="font-semibold text-blue-300">Python</span></div>
+                <div class="mb-2 sm:mb-0">Ký tự: <span id="char-count" class="font-semibold text-blue-300">0</span>
+                </div>
+                <div id="language-info" class="w-full sm:w-auto text-center sm:text-left">Ngôn ngữ: <span
+                        class="font-semibold text-blue-300">Python</span></div>
             </div>
         </div>
     </main>
@@ -146,16 +188,10 @@
         <div class="container mx-auto px-4">
             <div class="flex flex-col sm:flex-row justify-between items-center">
                 <div class="text-center sm:text-left mb-4 sm:mb-0 text-gray-400">
-                    <p>&copy; 2023 Code Viewer Pro. All rights reserved.</p>
+                    <p>↪2025 | Powered by <a href="https://linktr.ee/tanbaycu" target="_blank" rel="noopener noreferrer"
+                            class="tanbaycu-effect">tanbaycu</a></p>
                 </div>
-                <div class="flex space-x-6">
-                    <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-400 transition duration-300">
-                        <i class="fab fa-github fa-2x"></i>
-                    </a>
-                    <a href="https://facebook.com/yourpage" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-400 transition duration-300">
-                        <i class="fab fa-facebook fa-2x"></i>
-                    </a>
-                </div>
+
             </div>
         </div>
     </footer>
