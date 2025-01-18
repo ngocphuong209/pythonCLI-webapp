@@ -3,6 +3,7 @@ import subprocess
 import sys
 import os
 import uuid
+import tempfile
 
 app = Flask(__name__)
 app.secret_key = '2Mr4wbDS37QDLvDUQEsWbUTx'
@@ -15,7 +16,6 @@ def homepage():
 def clipython():
     return render_template("clipython.html")
 
-# Error handler for file size limit
 @app.errorhandler(413)
 def request_entity_too_large(error):
     flash("File is too large! The limit is 100MB.")
@@ -27,19 +27,18 @@ def run_python_code():
     code = data.get("code", "")
     input_values = data.get("input_values", [])
 
-    # Create a temporary file to store the Python code
-    temp_file = f"/tmp/temp_{uuid.uuid4().hex}.py"
-    with open(temp_file, "w") as f:
-        f.write(code)
+    with tempfile.NamedTemporaryFile(mode='w+', suffix='.py', delete=False, encoding='utf-8') as temp_file:
+        temp_file.write(code)
+        temp_file_path = temp_file.name
 
     try:
-        # Run the Python code with the provided input
         process = subprocess.Popen(
-            [sys.executable, temp_file],
+            [sys.executable, temp_file_path],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
+            encoding='utf-8'
         )
         stdout, stderr = process.communicate(input="\n".join(input_values))
 
@@ -50,32 +49,29 @@ def run_python_code():
     except Exception as e:
         return jsonify({"output": str(e), "error": True})
     finally:
-        # Remove the temporary file
-        if os.path.exists(temp_file):
-            os.remove(temp_file)
+        if os.path.exists(temp_file_path):
+            os.remove(temp_file_path)
 
 @app.route("/share-code", methods=["POST"])
 def share_code():
     data = request.json
     code = data.get("code", "")
-
-    # Create a unique ID for the shared code
     share_id = uuid.uuid4().hex
 
-    # Save the code to a file (in a real application, you'd use a database)
-    with open(f"/tmp/shared_code_{share_id}.py", "w") as f:
+    shared_code_dir = os.path.join(tempfile.gettempdir(), 'shared_code')
+    os.makedirs(shared_code_dir, exist_ok=True)
+    
+    with open(os.path.join(shared_code_dir, f"{share_id}.py"), "w", encoding='utf-8') as f:
         f.write(code)
 
-    # Create the share URL
     share_url = f"/view/{share_id}"
-
     return jsonify({"share_url": share_url})
 
 @app.route("/view/<share_id>")
 def view_shared_code(share_id):
-    # Read the code from the file (in a real application, you'd use a database)
+    shared_code_path = os.path.join(tempfile.gettempdir(), 'shared_code', f"{share_id}.py")
     try:
-        with open(f"/tmp/shared_code_{share_id}.py", "r") as f:
+        with open(shared_code_path, "r", encoding='utf-8') as f:
             code = f.read()
         return render_template("view_shared_code.html", code=code)
     except FileNotFoundError:
@@ -83,28 +79,7 @@ def view_shared_code(share_id):
 
 @app.route("/install-library", methods=["POST"])
 def install_library():
-    # Note: Installing libraries on-the-fly is not recommended in a production environment
-    # This is just for demonstration purposes
-    data = request.json
-    library = data.get("library", "")
-
-    if not library:
-        return jsonify({"success": False, "error": "Library name cannot be empty"})
-
-    try:
-        # Install the library using pip
-        result = subprocess.run(
-            [sys.executable, "-m", "pip", "install", library],
-            capture_output=True,
-            text=True,
-        )
-
-        if result.returncode == 0:
-            return jsonify({"success": True})
-        else:
-            return jsonify({"success": False, "error": result.stderr})
-    except Exception as e:
-        return jsonify({"success": False, "error": str(e)})
+    return jsonify({"success": False, "error": "Installing libraries dynamically is not supported for security reasons."})
 
 if __name__ == '__main__':
     app.run(debug=True)
