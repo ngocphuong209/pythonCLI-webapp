@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Web IDE - Edition</title>
+    <title>Python Web IDE - Professional Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/nord.min.css" rel="stylesheet">
@@ -18,14 +18,12 @@
         }
 
         .CodeMirror {
-            height: calc(100vh - 12rem);
-            border-radius: 0.5rem;
+            height: 100%;
             font-size: 14px;
         }
 
         @media (max-width: 640px) {
             .CodeMirror {
-                height: calc(100vh - 16rem);
                 font-size: 12px;
             }
         }
@@ -72,6 +70,25 @@
             transition: all 0.3s ease-in-out;
         }
 
+        .action-buttons {
+            transition: all 0.3s ease-in-out;
+        }
+
+        #resultArea {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #2e3440;
+            transition: all 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        #resultContent {
+            max-height: calc(50vh - 40px);
+            overflow-y: auto;
+        }
+
         @media (max-width: 640px) {
             .action-buttons {
                 position: fixed;
@@ -84,12 +101,16 @@
                 justify-content: space-around;
                 z-index: 50;
             }
+
+            #editor {
+                height: calc(100vh - 120px);
+            }
         }
     </style>
 </head>
 
-<body class="bg-gradient-to-br from-gray-900 to-blue-900 min-h-screen text-white font-sans">
-    <div class="flex flex-col h-screen overflow-hidden">
+<body class="bg-gradient-to-br from-gray-900 to-blue-900 text-white font-sans">
+    <div class="flex flex-col min-h-screen">
         <!-- Top bar -->
         <header class="bg-gray-800 p-4 flex justify-between items-center">
             <div class="flex items-center">
@@ -101,19 +122,19 @@
             <div class="flex space-x-2 action-buttons sm:relative">
                 <button id="runBtn"
                     class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center text-sm sm:text-base">
-                    <i class="fas fa-play mr-2"></i> <span class="hidden sm:inline">Run</span>
+                    <i class="fas fa-play mr-2"></i> <span class="hidden sm:inline">Chạy</span>
                 </button>
                 <button id="clearBtn"
                     class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center text-sm sm:text-base">
-                    <i class="fas fa-trash-alt mr-2"></i> <span class="hidden sm:inline">Clear</span>
+                    <i class="fas fa-trash-alt mr-2"></i> <span class="hidden sm:inline">Xóa</span>
                 </button>
                 <button id="saveBtn"
                     class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center text-sm sm:text-base">
-                    <i class="fas fa-save mr-2"></i> <span class="hidden sm:inline">Save</span>
+                    <i class="fas fa-save mr-2"></i> <span class="hidden sm:inline">Lưu</span>
                 </button>
                 <button id="shareBtn"
                     class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center text-sm sm:text-base">
-                    <i class="fas fa-share-alt mr-2"></i> <span class="hidden sm:inline">Share</span>
+                    <i class="fas fa-share-alt mr-2"></i> <span class="hidden sm:inline">Chia sẻ</span>
                 </button>
             </div>
         </header>
@@ -121,7 +142,7 @@
         <div class="flex flex-1 overflow-hidden">
             <!-- Sidebar -->
             <aside id="sidebar"
-                class="w-64 bg-gray-800 text-white p-4 sidebar-transition transform -translate-x-full absolute inset-y-0 left-0 z-50 lg:relative lg:translate-x-0">
+                class="w-64 bg-gray-800 text-white p-4 sidebar-transition transform -translate-x-full fixed inset-y-0 left-0 z-50 lg:relative lg:translate-x-0 overflow-y-auto">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold">Python IDE</h2>
                     <button id="closeSidebarBtn" class="lg:hidden text-white focus:outline-none">
@@ -172,17 +193,22 @@
             <!-- Main content -->
             <main class="flex-1 flex flex-col overflow-hidden">
                 <!-- Editor area -->
-                <div class="flex-1 overflow-hidden">
-                    <div id="editor" class="w-full h-full"></div>
+                <div class="flex-1 overflow-hidden relative">
+                    <div id="editor" class="absolute inset-0"></div>
                 </div>
-
-                <!-- Output area -->
-                <footer id="output" class="bg-gray-800 p-4 hidden">
-                    <h2 class="text-xl font-semibold mb-2 text-blue-400">Kết quả:</h2>
-                    <pre id="outputContent"
-                        class="bg-gray-900 p-4 rounded-lg shadow-inner text-sm overflow-x-auto custom-scrollbar text-green-400 max-h-40"></pre>
-                </footer>
             </main>
+        </div>
+
+        <!-- Result area -->
+        <div id="resultArea" class="bg-gray-800 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="flex justify-between items-center p-2 bg-gray-700">
+                <h2 class="text-lg font-semibold text-blue-400">Kết quả:</h2>
+                <button id="toggleResult" class="text-white focus:outline-none">
+                    <i class="fas fa-chevron-up"></i>
+                </button>
+            </div>
+            <pre id="resultContent"
+                class="p-4 bg-gray-900 text-sm overflow-y-auto custom-scrollbar text-green-400"></pre>
         </div>
     </div>
 
@@ -234,8 +260,9 @@
         const themeToggleBtn = document.getElementById("themeToggleBtn");
         const themeStatus = document.getElementById("themeStatus");
         const advancedOptions = document.getElementById("advancedOptions");
-        const output = document.getElementById("output");
-        const outputContent = document.getElementById("outputContent");
+        const resultArea = document.getElementById("resultArea");
+        const resultContent = document.getElementById("resultContent");
+        const toggleResult = document.getElementById("toggleResult");
 
         sidebarToggle.addEventListener("click", () => {
             sidebar.classList.toggle("-translate-x-full");
@@ -281,22 +308,25 @@
                 });
 
                 const result = await response.json();
-                output.style.display = "block";
-                outputContent.textContent = result.output;
+                resultArea.style.display = "block";
+                resultContent.textContent = result.output;
 
                 if (result.error) {
-                    outputContent.classList.add("text-red-500");
-                    outputContent.classList.remove("text-green-400");
+                    resultContent.classList.add("text-red-500");
+                    resultContent.classList.remove("text-green-400");
                 } else {
-                    outputContent.classList.remove("text-red-500");
-                    outputContent.classList.add("text-green-400");
+                    resultContent.classList.remove("text-red-500");
+                    resultContent.classList.add("text-green-400");
                 }
+
+                // Scroll to bottom of result
+                resultContent.scrollTop = resultContent.scrollHeight;
             } catch (error) {
                 console.error("Error:", error);
-                output.style.display = "block";
-                outputContent.textContent = "Đã xảy ra lỗi khi chạy mã Python.";
-                outputContent.classList.add("text-red-500");
-                outputContent.classList.remove("text-green-400");
+                resultArea.style.display = "block";
+                resultContent.textContent = "Đã xảy ra lỗi khi chạy mã Python.";
+                resultContent.classList.add("text-red-500");
+                resultContent.classList.remove("text-green-400");
             } finally {
                 runBtn.disabled = false;
                 runBtn.innerHTML = '<i class="fas fa-play mr-2"></i> <span class="hidden sm:inline">Chạy</span>';
@@ -306,7 +336,7 @@
         clearBtn.addEventListener("click", function () {
             editor.setValue("");
             document.getElementById("inputValue").value = "";
-            output.style.display = "none";
+            resultArea.style.display = "none";
         });
 
         saveBtn.addEventListener("click", function () {
@@ -360,6 +390,17 @@
                     document.exitFullscreen();
                     fullscreenBtn.innerHTML = '<i class="fas fa-expand-arrows-alt mr-2"></i>Toàn màn hình';
                 }
+            }
+        });
+
+        toggleResult.addEventListener("click", function () {
+            const isExpanded = resultArea.style.height === "50vh";
+            if (isExpanded) {
+                resultArea.style.height = "40px";
+                toggleResult.innerHTML = '<i class="fas fa-chevron-up"></i>';
+            } else {
+                resultArea.style.height = "50vh";
+                toggleResult.innerHTML = '<i class="fas fa-chevron-down"></i>';
             }
         });
 
