@@ -97,7 +97,7 @@
                                     d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                             </svg>
                             Làm đẹp mã
-                            <span class="tooltip">Định dạng lại mã nguồn</span>
+                            <span class="tooltip">Định dạng lại mã nguồn theo chuẩn PEP 8 (cho Python)</span>
                         </button>
                         <button id="download-btn"
                             class="tooltip-container bg-purple-500 hover:bg-purple-600 text-white px-3 py-2 rounded text-sm transition duration-300 flex items-center">
@@ -151,8 +151,11 @@
         });
 
         function updateCounts() {
+            const code = editor.getValue();
             document.getElementById('line-count').textContent = editor.lineCount();
-            document.getElementById('char-count').textContent = editor.getValue().length;
+            document.getElementById('char-count').textContent = code.length;
+            const detectedLanguage = detectLanguage(code);
+            document.getElementById('language-info').innerHTML = `Ngôn ngữ: <span class="font-semibold">${detectedLanguage}</span>`;
         }
         updateCounts();
         editor.on('change', updateCounts);
@@ -167,29 +170,35 @@
             });
         });
 
-        document.getElementById('beautify-btn').addEventListener('click', function () {
+        document.getElementById('beautify-btn').addEventListener('click', async function () {
             const code = editor.getValue();
-            const beautifiedCode = js_beautify(code, {
-                indent_size: 4,
-                indent_char: ' ',
-                max_preserve_newlines: 2,
-                preserve_newlines: true,
-                keep_array_indentation: false,
-                break_chained_methods: false,
-                indent_scripts: 'normal',
-                brace_style: 'collapse',
-                space_before_conditional: true,
-                unescape_strings: false,
-                jslint_happy: false,
-                end_with_newline: true,
-                wrap_line_length: 0,
-                indent_inner_html: false,
-                comma_first: false,
-                e4x: false,
-                indent_empty_lines: false
-            });
-            editor.setValue(beautifiedCode);
-            showNotification('Mã đã được làm đẹp!');
+            try {
+                const response = await fetch('https://api.pythonformatter.com/format', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        code: code,
+                        style: 'pep8'
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const result = await response.json();
+                if (result.formatted_code) {
+                    editor.setValue(result.formatted_code);
+                    showNotification('Mã đã được làm đẹp theo chuẩn PEP 8!');
+                } else {
+                    throw new Error('Không nhận được mã đã định dạng');
+                }
+            } catch (error) {
+                console.error('Error formatting code:', error);
+                showNotification('Có lỗi xảy ra khi làm đẹp mã. Vui lòng thử lại.', 'error');
+            }
         });
 
         document.getElementById('download-btn').addEventListener('click', function () {
@@ -245,6 +254,19 @@
                     document.body.removeChild(notification);
                 }, 300);
             }, 3000);
+        }
+
+        function detectLanguage(code) {
+            // Simple language detection based on keywords or syntax
+            if (code.includes('def ') || code.includes('import ') || code.includes('print(')) {
+                return 'Python';
+            } else if (code.includes('function ') || code.includes('var ') || code.includes('const ')) {
+                return 'JavaScript';
+            } else if (code.includes('public class ') || code.includes('System.out.println')) {
+                return 'Java';
+            } else {
+                return 'Unknown';
+            }
         }
     </script>
 </body>
