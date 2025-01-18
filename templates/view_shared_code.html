@@ -29,6 +29,45 @@
         .cm-s-material.CodeMirror {
             background-color: rgba(40, 42, 54, 0.95);
         }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #2d3748;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #718096;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2d3748;
+            color: #fff;
+            text-align: center;
+            padding: 5px 10px;
+            border-radius: 6px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip-container:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -36,58 +75,66 @@
     class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 min-h-screen flex flex-col justify-center items-center p-4 sm:p-6 lg:p-8">
     <div class="container mx-auto max-w-4xl w-full">
         <div class="bg-white shadow-2xl rounded-lg overflow-hidden">
-            <div class="p-4 bg-gray-800 text-white border-b flex flex-wrap justify-between items-center">
-                <div class="flex flex-wrap space-x-2 mb-2 sm:mb-0">
-                    <button id="copy-btn"
-                        class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm transition duration-300 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                        </svg>
-                        Sao chép
-                    </button>
-                    <button id="beautify-btn"
-                        class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm transition duration-300 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                        </svg>
-                        Làm đẹp mã
-                    </button>
-                    <button id="download-btn"
-                        class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm transition duration-300 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                        </svg>
-                        Tải xuống
-                    </button>
-                </div>
-                <div class="flex items-center mt-2 sm:mt-0">
-                    <label for="theme-select" class="mr-2 text-sm">Giao diện:</label>
-                    <select id="theme-select"
-                        class="bg-gray-700 text-white border border-gray-600 rounded px-2 py-1 text-sm">
-                        <option value="dracula">Dracula</option>
-                        <option value="monokai">Monokai</option>
-                        <option value="solarized">Solarized</option>
-                        <option value="material">Material</option>
-                    </select>
+            <div class="p-4 bg-gray-800 text-white border-b">
+                <h1 class="text-2xl font-bold mb-4 text-center">Xem và Làm đẹp Mã được Chia sẻ</h1>
+                <div class="flex flex-wrap justify-between items-center">
+                    <div class="flex flex-wrap space-x-2 mb-2 sm:mb-0">
+                        <button id="copy-btn"
+                            class="tooltip-container bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded text-sm transition duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                            Sao chép
+                            <span class="tooltip">Sao chép mã vào clipboard</span>
+                        </button>
+                        <button id="beautify-btn"
+                            class="tooltip-container bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded text-sm transition duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                            </svg>
+                            Làm đẹp mã
+                            <span class="tooltip">Định dạng lại mã nguồn</span>
+                        </button>
+                        <button id="download-btn"
+                            class="tooltip-container bg-purple-500 hover:bg-purple-600 text-white px-3 py-2 rounded text-sm transition duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            Tải xuống
+                            <span class="tooltip">Tải mã nguồn về máy</span>
+                        </button>
+                    </div>
+                    <div class="flex items-center mt-2 sm:mt-0">
+                        <label for="theme-select" class="mr-2 text-sm">Giao diện:</label>
+                        <select id="theme-select"
+                            class="bg-gray-700 text-white border border-gray-600 rounded px-2 py-1 text-sm">
+                            <option value="dracula">Dracula</option>
+                            <option value="monokai">Monokai</option>
+                            <option value="solarized">Solarized</option>
+                            <option value="material">Material</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div id="shared-code" class="p-4"></div>
-            <div class="bg-gray-800 text-white p-4 flex justify-between items-center text-sm">
-                <div>Dòng: <span id="line-count" class="font-semibold">0</span></div>
-                <div>Ký tự: <span id="char-count" class="font-semibold">0</span></div>
+            <div id="shared-code" class="p-4 custom-scrollbar"></div>
+            <div class="bg-gray-800 text-white p-4 flex flex-wrap justify-between items-center text-sm">
+                <div class="mb-2 sm:mb-0">Dòng: <span id="line-count" class="font-semibold">0</span></div>
+                <div class="mb-2 sm:mb-0">Ký tự: <span id="char-count" class="font-semibold">0</span></div>
+                <div id="language-info" class="w-full sm:w-auto text-center sm:text-left">Ngôn ngữ: <span
+                        class="font-semibold">Python</span></div>
             </div>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.0/beautify-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.0/beautify.min.js"></script>
     <script>
         const editor = CodeMirror(document.getElementById("shared-code"), {
             value: `{{ code | safe }}`,
@@ -96,7 +143,11 @@
             lineNumbers: true,
             readOnly: false,
             lineWrapping: true,
-            viewportMargin: Infinity
+            viewportMargin: Infinity,
+            autoCloseBrackets: true,
+            matchBrackets: true,
+            indentUnit: 4,
+            tabSize: 4,
         });
 
         function updateCounts() {
@@ -109,9 +160,10 @@
         document.getElementById('copy-btn').addEventListener('click', function () {
             const code = editor.getValue();
             navigator.clipboard.writeText(code).then(function () {
-                alert('Đã sao chép mã vào clipboard!');
+                showNotification('Đã sao chép mã vào clipboard!');
             }, function (err) {
                 console.error('Không thể sao chép: ', err);
+                showNotification('Không thể sao chép mã. Vui lòng thử lại.', 'error');
             });
         });
 
@@ -137,6 +189,7 @@
                 indent_empty_lines: false
             });
             editor.setValue(beautifiedCode);
+            showNotification('Mã đã được làm đẹp!');
         });
 
         document.getElementById('download-btn').addEventListener('click', function () {
@@ -148,6 +201,7 @@
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+            showNotification('Mã đã được tải xuống!');
         });
 
         document.getElementById('theme-select').addEventListener('change', function () {
@@ -178,6 +232,20 @@
         window.addEventListener('resize', adjustEditorHeight);
         window.addEventListener('load', adjustEditorHeight);
         adjustEditorHeight(); // Initial adjustment
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg text-white ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} transition-opacity duration-300`;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
     </script>
 </body>
 
