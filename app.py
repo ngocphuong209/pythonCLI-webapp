@@ -174,8 +174,8 @@ def view_shared_code(share_id):
             code = f.read()
         return render_template("view_shared_code.html", code=code)
     except FileNotFoundError:
-        return "Code does not exist or has expired.", 404
-
+        # Trả về trang 404.html khi mã không tồn tại
+        return render_template('404.html'), 404
 
 @app.route("/install-library", methods=["POST"])
 def install_library():
@@ -185,7 +185,7 @@ def install_library():
             "error": "Installing libraries dynamically is not supported for security reasons.",
         }
     )
-    
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
