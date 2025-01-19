@@ -11,10 +11,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png" />
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap");
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
 
         body {
-            font-family: "Fira Code", monospace;
+            font-family: 'Fira Code', monospace;
         }
 
         .CodeMirror {
@@ -87,6 +87,114 @@
             overflow-y: auto;
         }
 
+        /* New styles for the improved sidebar */
+        #sidebar {
+            background: linear-gradient(135deg, #2a3f5f 0%, #1e2a3a 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .sidebar-item {
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 3px solid #88c0d0;
+            transform: translateX(5px);
+        }
+
+        .sidebar-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .sidebar-item:hover::after {
+            transform: translateX(100%);
+        }
+
+        .sidebar-icon {
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-item:hover .sidebar-icon {
+            transform: scale(1.2) rotate(360deg);
+        }
+
+        .advanced-options {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+
+        .advanced-options.show {
+            max-height: 500px;
+        }
+
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #4c566a;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: #d8dee9;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: #88c0d0;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
+
+        .library-item {
+            transition: all 0.3s ease;
+        }
+
+        .library-item:hover {
+            transform: translateX(5px);
+            color: #88c0d0;
+        }
+
         @media (max-width: 640px) {
             .CodeMirror {
                 font-size: 12px;
@@ -98,6 +206,11 @@
 
             #resultArea {
                 bottom: 60px;
+            }
+
+            #sidebar {
+                width: 100%;
+                max-width: 300px;
             }
         }
     </style>
@@ -138,37 +251,38 @@
         </header>
 
         <div class="flex flex-1 overflow-hidden">
-            <!-- Sidebar -->
+            <!-- Improved Sidebar -->
             <aside id="sidebar"
-                class="w-64 bg-gray-800 text-white p-4 transform -translate-x-full fixed inset-y-0 left-0 z-50 lg:relative lg:translate-x-0 overflow-y-auto transition-all duration-300 ease-in-out">
+                class="w-64 text-white p-4 transform -translate-x-full fixed inset-y-0 left-0 z-50 lg:relative lg:translate-x-0 overflow-y-auto transition-all duration-300 ease-in-out">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold">Python IDE</h2>
+                    <h2 class="text-2xl font-bold text-blue-300"></h2>
                     <button id="closeSidebarBtn" class="lg:hidden text-white focus:outline-none">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <nav class="space-y-4">
                     <button id="settingsBtn"
-                        class="w-full flex items-center justify-between p-2 rounded hover:bg-gray-700 transition-colors">
-                        <span><i class="fas fa-cog mr-2"></i> Cài đặt</span>
+                        class="sidebar-item w-full flex items-center justify-between p-3 rounded transition-colors">
+                        <span><i class="fas fa-cog mr-2 sidebar-icon"></i> Cài đặt</span>
                         <i class="fas fa-chevron-right text-sm"></i>
                     </button>
-                    <button id="themeToggleBtn"
-                        class="w-full flex items-center justify-between p-2 rounded hover:bg-gray-700 transition-colors">
-                        <span><i class="fas fa-adjust mr-2"></i> Giao diện</span>
-                        <span id="themeStatus" class="text-xs bg-blue-600 px-2 py-1 rounded">Tối</span>
-                    </button>
+                    <div class="sidebar-item w-full flex items-center justify-between p-3 rounded transition-colors">
+                        <span><i class="fas fa-adjust mr-2 sidebar-icon"></i> Giao diện</span>
+                        <label class="theme-switch">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
                     <button id="fullscreenBtn"
-                        class="w-full flex items-center justify-between p-2 rounded hover:bg-gray-700 transition-colors">
-                        <span><i class="fas fa-expand-arrows-alt mr-2"></i> Toàn màn
-                            hình</span>
+                        class="sidebar-item w-full flex items-center justify-between p-3 rounded transition-colors">
+                        <span><i class="fas fa-expand-arrows-alt mr-2 sidebar-icon"></i> Toàn màn hình</span>
                     </button>
                 </nav>
-                <div id="advancedOptions" class="mt-6 space-y-4 hidden">
-                    <h3 class="text-lg font-semibold">Tùy chọn nâng cao</h3>
+                <div id="advancedOptions" class="advanced-options mt-6 space-y-4">
+                    <h3 class="text-lg font-semibold text-blue-300">Tùy chọn nâng cao</h3>
                     <div class="flex items-center space-x-3">
                         <input type="checkbox" id="inputRequired"
-                            class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500" />
+                            class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
                         <label for="inputRequired" class="text-sm">Yêu cầu nhập dữ liệu</label>
                     </div>
                     <div id="inputValueContainer" class="hidden">
@@ -178,13 +292,13 @@
                     </div>
                 </div>
                 <div class="mt-6">
-                    <h3 class="text-lg font-semibold mb-2">Thư viện có sẵn:</h3>
-                    <ul id="libraryList" class="text-sm space-y-1 pl-4 list-disc">
-                        <li>math</li>
-                        <li>random</li>
-                        <li>datetime</li>
-                        <li>json</li>
-                        <li>re</li>
+                    <h3 class="text-lg font-semibold mb-2 text-blue-300">Thư viện có sẵn:</h3>
+                    <ul id="libraryList" class="text-sm space-y-2 pl-4">
+                        <li class="library-item"><i class="fas fa-calculator mr-2"></i>math</li>
+                        <li class="library-item"><i class="fas fa-dice mr-2"></i>random</li>
+                        <li class="library-item"><i class="fas fa-calendar-alt mr-2"></i>datetime</li>
+                        <li class="library-item"><i class="fas fa-code mr-2"></i>json</li>
+                        <li class="library-item"><i class="fas fa-search mr-2"></i>re</li>
                     </ul>
                 </div>
             </aside>
@@ -249,17 +363,14 @@
         const sidebarToggle = document.getElementById("sidebarToggle");
         const closeSidebarBtn = document.getElementById("closeSidebarBtn");
         const inputRequired = document.getElementById("inputRequired");
-        const inputValueContainer = document.getElementById(
-            "inputValueContainer"
-        );
+        const inputValueContainer = document.getElementById("inputValueContainer");
         const runBtn = document.getElementById("runBtn");
         const clearBtn = document.getElementById("clearBtn");
         const saveBtn = document.getElementById("saveBtn");
         const shareBtn = document.getElementById("shareBtn");
         const fullscreenBtn = document.getElementById("fullscreenBtn");
         const settingsBtn = document.getElementById("settingsBtn");
-        const themeToggleBtn = document.getElementById("themeToggleBtn");
-        const themeStatus = document.getElementById("themeStatus");
+        const themeToggle = document.getElementById("themeToggle");
         const advancedOptions = document.getElementById("advancedOptions");
         const resultArea = document.getElementById("resultArea");
         const resultContent = document.getElementById("resultContent");
@@ -278,20 +389,15 @@
         });
 
         settingsBtn.addEventListener("click", function () {
-            advancedOptions.classList.toggle("hidden");
-            settingsBtn
-                .querySelector("i:last-child")
-                .classList.toggle("fa-chevron-down");
-            settingsBtn
-                .querySelector("i:last-child")
-                .classList.toggle("fa-chevron-right");
+            advancedOptions.classList.toggle("show");
+            settingsBtn.querySelector("i:last-child").classList.toggle("fa-chevron-down");
+            settingsBtn.querySelector("i:last-child").classList.toggle("fa-chevron-right");
         });
 
-        themeToggleBtn.addEventListener("click", function () {
-            currentTheme = currentTheme === "nord" ? "default" : "nord";
+        themeToggle.addEventListener("change", function () {
+            currentTheme = this.checked ? "default" : "nord";
             editor.setOption("theme", currentTheme);
             document.body.classList.toggle("dark");
-            themeStatus.textContent = currentTheme === "nord" ? "Tối" : "Sáng";
         });
 
         runBtn.addEventListener("click", async function () {
@@ -300,17 +406,16 @@
 
             try {
                 runBtn.disabled = true;
-                runBtn.innerHTML =
-                    '<i class="fas fa-spinner fa-spin mr-2"></i> <span class="hidden sm:inline">Đang chạy...</span>';
+                runBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> <span class="hidden sm:inline">Đang chạy...</span>';
                 const response = await fetch("/run-python", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
                         code: code,
                         input_values: inputRequired.checked ? inputValue.split("\n") : []
-                    })
+                    }),
                 });
 
                 const contentType = response.headers.get("content-type");
@@ -344,14 +449,12 @@
                 resultArea.style.maxHeight = "50vh";
                 resultContent.style.display = "block";
                 toggleResult.innerHTML = '<i class="fas fa-chevron-down"></i>';
-                resultContent.textContent =
-                    "Đã xảy ra lỗi khi chạy mã Python: " + error.message;
+                resultContent.textContent = "Đã xảy ra lỗi khi chạy mã Python: " + error.message;
                 resultContent.classList.add("text-red-500");
                 resultContent.classList.remove("text-green-400");
             } finally {
                 runBtn.disabled = false;
-                runBtn.innerHTML =
-                    '<i class="fas fa-play mr-2"></i> <span class="hidden sm:inline">Chạy</span>';
+                runBtn.innerHTML = '<i class="fas fa-play mr-2"></i> <span class="hidden sm:inline">Chạy</span>';
                 editor.refresh();
             }
         });
@@ -379,28 +482,22 @@
 
             try {
                 shareBtn.disabled = true;
-                shareBtn.innerHTML =
-                    '<i class="fas fa-spinner fa-spin mr-2"></i> <span class="hidden sm:inline">Đang chia sẻ...</span>';
+                shareBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> <span class="hidden sm:inline">Đang chia sẻ...</span>';
                 const response = await fetch("/share-code", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ code: code })
+                    body: JSON.stringify({ code: code }),
                 });
                 const result = await response.json();
                 if (result.share_url) {
                     const shareUrl = `https://python-cli-webapp.vercel.app${result.share_url}`;
-                    navigator.clipboard.writeText(shareUrl).then(
-                        () => {
-                            alert(
-                                `Mã của bạn đã được chia sẻ. URL đã được sao chép vào clipboard: ${shareUrl}`
-                            );
-                        },
-                        (err) => {
-                            alert(`Mã của bạn đã được chia sẻ. URL: ${shareUrl}`);
-                        }
-                    );
+                    navigator.clipboard.writeText(shareUrl).then(() => {
+                        alert(`Mã của bạn đã được chia sẻ. URL đã được sao chép vào clipboard: ${shareUrl}`);
+                    }, (err) => {
+                        alert(`Mã của bạn đã được chia sẻ. URL: ${shareUrl}`);
+                    });
                 } else {
                     alert("Có lỗi xảy ra khi chia sẻ mã.");
                 }
@@ -409,21 +506,18 @@
                 alert("Có lỗi xảy ra khi chia sẻ mã.");
             } finally {
                 shareBtn.disabled = false;
-                shareBtn.innerHTML =
-                    '<i class="fas fa-share-alt mr-2"></i> <span class="hidden sm:inline">Chia sẻ</span>';
+                shareBtn.innerHTML = '<i class="fas fa-share-alt mr-2"></i> <span class="hidden sm:inline">Chia sẻ</span>';
             }
         });
 
         fullscreenBtn.addEventListener("click", function () {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen();
-                fullscreenBtn.innerHTML =
-                    '<i class="fas fa-compress-arrows-alt mr-2"></i>Thu nhỏ';
+                fullscreenBtn.innerHTML = '<i class="fas fa-compress-arrows-alt mr-2"></i>Thu nhỏ';
             } else {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
-                    fullscreenBtn.innerHTML =
-                        '<i class="fas fa-expand-arrows-alt mr-2"></i>Toàn màn hình';
+                    fullscreenBtn.innerHTML = '<i class="fas fa-expand-arrows-alt mr-2"></i>Toàn màn hình';
                 }
             }
         });
@@ -442,8 +536,8 @@
             editor.refresh();
         });
 
-        document.addEventListener("keydown", function (event) {
-            if (event.ctrlKey && event.key === "Enter") {
+        document.addEventListener('keydown', function (event) {
+            if (event.ctrlKey && event.key === 'Enter') {
                 runBtn.click();
             }
         });
@@ -465,12 +559,13 @@ for i in range(10):
         const resizeObserver = new ResizeObserver(() => {
             editor.refresh();
         });
-        resizeObserver.observe(document.querySelector(".editor-container"));
+        resizeObserver.observe(document.querySelector('.editor-container'));
 
         function addLibrary(libraryName) {
-            const libraryList = document.getElementById("libraryList");
-            const li = document.createElement("li");
+            const libraryList = document.getElementById('libraryList');
+            const li = document.createElement('li');
             li.textContent = libraryName;
+            li.classList.add('library-item');
             libraryList.appendChild(li);
         }
 

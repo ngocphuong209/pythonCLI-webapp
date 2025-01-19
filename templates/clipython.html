@@ -6,15 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Python Web IDE - Professional Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/nord.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png" />
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+        @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap");
 
         body {
-            font-family: 'Fira Code', monospace;
+            font-family: "Fira Code", monospace;
         }
 
         .CodeMirror {
@@ -108,13 +109,16 @@
         }
 
         .sidebar-item::after {
-            content: '';
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(45deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.1),
+                    transparent);
             transform: translateX(-100%);
             transition: 0.5s;
         }
@@ -162,7 +166,7 @@
             right: 0;
             bottom: 0;
             background-color: #4c566a;
-            transition: .4s;
+            transition: 0.4s;
             border-radius: 34px;
         }
 
@@ -174,7 +178,7 @@
             left: 4px;
             bottom: 4px;
             background-color: #d8dee9;
-            transition: .4s;
+            transition: 0.4s;
             border-radius: 50%;
         }
 
@@ -213,6 +217,85 @@
                 max-width: 300px;
             }
         }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #2e3440;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #88c0d0;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .qrcode-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .copy-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #3b4252;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .copy-link:hover {
+            background-color: #4c566a;
+        }
+
+        .copy-link span {
+            flex-grow: 1;
+            word-break: break-all;
+        }
+
+        .copy-link i {
+            color: #88c0d0;
+        }
     </style>
 </head>
 
@@ -228,27 +311,65 @@
             </div>
             <div class="flex space-x-2 sm:relative">
                 <button id="runBtn"
-                    class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center">
+                    class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center"
+                    title="Chạy code (Ctrl + Enter)">
                     <i class="fas fa-play mr-2"></i>
                     <span class="hidden sm:inline">Chạy</span>
                 </button>
                 <button id="clearBtn"
-                    class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center">
+                    class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center"
+                    title="Xóa code và kết quả">
                     <i class="fas fa-trash-alt mr-2"></i>
                     <span class="hidden sm:inline">Xóa</span>
                 </button>
                 <button id="saveBtn"
-                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center">
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center"
+                    title="Lưu code vào máy">
                     <i class="fas fa-save mr-2"></i>
                     <span class="hidden sm:inline">Lưu</span>
                 </button>
                 <button id="shareBtn"
-                    class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center">
+                    class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center"
+                    title="Chia sẻ code">
                     <i class="fas fa-share-alt mr-2"></i>
                     <span class="hidden sm:inline">Chia sẻ</span>
                 </button>
             </div>
         </header>
+
+        <!-- Notification area -->
+        <div id="notificationArea" class="fixed top-4 right-4 space-y-2 z-50"></div>
+
+        <!-- Share Modal -->
+        <div id="shareModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Chia sẻ mã</h2>
+                    <button id="closeModalBtn" class="text-white focus:outline-none">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="copy-link" id="copyLinkBtn">
+                        <span id="shareUrl"></span>
+                        <i class="fas fa-copy"></i>
+                    </div>
+                    <div class="qrcode-container">
+                        <div id="qrcode"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="openLinkBtn"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                        Mở liên kết
+                    </button>
+                    <button id="closeModalBtn2"
+                        class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                        Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <div class="flex flex-1 overflow-hidden">
             <!-- Improved Sidebar -->
@@ -269,20 +390,23 @@
                     <div class="sidebar-item w-full flex items-center justify-between p-3 rounded transition-colors">
                         <span><i class="fas fa-adjust mr-2 sidebar-icon"></i> Giao diện</span>
                         <label class="theme-switch">
-                            <input type="checkbox" id="themeToggle">
+                            <input type="checkbox" id="themeToggle" />
                             <span class="slider"></span>
                         </label>
                     </div>
                     <button id="fullscreenBtn"
                         class="sidebar-item w-full flex items-center justify-between p-3 rounded transition-colors">
-                        <span><i class="fas fa-expand-arrows-alt mr-2 sidebar-icon"></i> Toàn màn hình</span>
+                        <span><i class="fas fa-expand-arrows-alt mr-2 sidebar-icon"></i> Toàn
+                            màn hình</span>
                     </button>
                 </nav>
                 <div id="advancedOptions" class="advanced-options mt-6 space-y-4">
-                    <h3 class="text-lg font-semibold text-blue-300">Tùy chọn nâng cao</h3>
+                    <h3 class="text-lg font-semibold text-blue-300">
+                        Tùy chọn nâng cao
+                    </h3>
                     <div class="flex items-center space-x-3">
                         <input type="checkbox" id="inputRequired"
-                            class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                            class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500" />
                         <label for="inputRequired" class="text-sm">Yêu cầu nhập dữ liệu</label>
                     </div>
                     <div id="inputValueContainer" class="hidden">
@@ -292,14 +416,13 @@
                     </div>
                 </div>
                 <div class="mt-6">
-                    <h3 class="text-lg font-semibold mb-2 text-blue-300">Thư viện có sẵn:</h3>
-                    <ul id="libraryList" class="text-sm space-y-2 pl-4">
-                        <li class="library-item"><i class="fas fa-calculator mr-2"></i>math</li>
-                        <li class="library-item"><i class="fas fa-dice mr-2"></i>random</li>
-                        <li class="library-item"><i class="fas fa-calendar-alt mr-2"></i>datetime</li>
-                        <li class="library-item"><i class="fas fa-code mr-2"></i>json</li>
-                        <li class="library-item"><i class="fas fa-search mr-2"></i>re</li>
-                    </ul>
+                    <h3 class="text-lg font-semibold mb-2 text-blue-300">
+                        Thư viện có sẵn:
+                    </h3>
+
+                    <div id="libraryList" class="grid grid-cols-2 gap-2 text-sm">
+                        <!-- Thư viện sẽ được thêm động bằng JavaScript -->
+                    </div>
                 </div>
             </aside>
 
@@ -337,6 +460,37 @@
         let editor;
         let currentTheme = "nord";
 
+        // Danh sách thư viện có sẵn
+        const libraries = [
+            { name: "math", category: "Toán học", icon: "fa-calculator" },
+            { name: "random", category: "Ngẫu nhiên", icon: "fa-dice" },
+            { name: "datetime", category: "Ngày giờ", icon: "fa-calendar-alt" },
+            { name: "json", category: "Xử lý dữ liệu", icon: "fa-code" },
+            { name: "re", category: "Biểu thức chính quy", icon: "fa-search" },
+            {
+                name: "collections",
+                category: "Cấu trúc dữ liệu",
+                icon: "fa-layer-group"
+            },
+            { name: "itertools", category: "Lặp và tổ hợp", icon: "fa-infinity" },
+            {
+                name: "functools",
+                category: "Lập trình hàm",
+                icon: "fa-project-diagram"
+            },
+            { name: "heapq", category: "Heap", icon: "fa-sort-amount-up" },
+            {
+                name: "bisect",
+                category: "Tìm kiếm nhị phân",
+                icon: "fa-search-plus"
+            },
+            { name: "statistics", category: "Thống kê", icon: "fa-chart-bar" },
+            { name: "array", category: "Mảng", icon: "fa-th-list" },
+            { name: "decimal", category: "Số thập phân", icon: "fa-calculator" },
+            { name: "fractions", category: "Phân số", icon: "fa-divide" },
+            { name: "operator", category: "Toán tử", icon: "fa-plus-circle" }
+        ];
+
         function initializeEditor() {
             editor = CodeMirror(document.getElementById("editor"), {
                 mode: "python",
@@ -355,15 +509,169 @@
                     "Cmd-/": "toggleComment"
                 }
             });
+
+            // Tự động lưu code và cài đặt vào localStorage
+            editor.on("change", () => {
+                saveState();
+            });
+
+            // Khôi phục trạng thái từ localStorage
+            restoreState();
+        }
+
+        function saveState() {
+            const state = {
+                code: editor.getValue(),
+                inputRequired: document.getElementById("inputRequired").checked,
+                inputValue: document.getElementById("inputValue").value,
+                theme: currentTheme
+            };
+            localStorage.setItem("ideState", JSON.stringify(state));
+        }
+
+        function restoreState() {
+            const savedState = localStorage.getItem("ideState");
+            if (savedState) {
+                const state = JSON.parse(savedState);
+                editor.setValue(state.code);
+                document.getElementById("inputRequired").checked =
+                    state.inputRequired;
+                document.getElementById("inputValue").value = state.inputValue;
+                document.getElementById("inputValueContainer").style.display =
+                    state.inputRequired ? "block" : "none";
+                currentTheme = state.theme;
+                editor.setOption("theme", currentTheme);
+                document.getElementById("themeToggle").checked =
+                    currentTheme === "default";
+            }
+        }
+
+        function renderLibraries() {
+            const libraryList = document.getElementById("libraryList");
+            libraryList.innerHTML = libraries
+                .map(
+                    (lib) => `
+                    <div class="library-item p-2 bg-gray-700 rounded flex items-center space-x-2">
+                        <i class="fas ${lib.icon}"></i>
+                        <span>${lib.name}</span>
+                    </div>
+                `
+                )
+                .join("");
+        }
+
+        function showToast(message, type = "info") {
+            const toast = document.createElement("div");
+            toast.className = `p-3 rounded-lg shadow-lg ${type === "success"
+                    ? "bg-green-600"
+                    : type === "error"
+                        ? "bg-red-600"
+                        : "bg-blue-600"
+                } text-white`;
+            toast.textContent = message;
+            const notificationArea = document.getElementById("notificationArea");
+            notificationArea.appendChild(toast);
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        function showShareModal(shareUrl) {
+            const modal = document.getElementById("shareModal");
+            const shareUrlElement = document.getElementById("shareUrl");
+            const qrcodeContainer = document.getElementById("qrcode");
+
+            // Hiển thị URL chia sẻ
+            shareUrlElement.textContent = shareUrl;
+
+            // Tạo mã QR code
+            qrcodeContainer.innerHTML = "";
+            new QRCode(qrcodeContainer, {
+                text: shareUrl,
+                width: 200,
+                height: 200
+            });
+
+            // Hiển thị modal
+            modal.style.display = "flex";
+        }
+
+        function closeShareModal() {
+            const modal = document.getElementById("shareModal");
+            modal.style.display = "none";
         }
 
         initializeEditor();
+        renderLibraries();
+
+        // Xử lý sự kiện chia sẻ
+        document
+            .getElementById("shareBtn")
+            .addEventListener("click", async function () {
+                const code = editor.getValue();
+
+                try {
+                    const response = await fetch("/share-code", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ code: code })
+                    });
+                    const result = await response.json();
+                    if (result.share_url) {
+                        const shareUrl = `https://python-cli-webapp.vercel.app${result.share_url}`;
+                        showShareModal(shareUrl);
+                    } else {
+                        showToast("Có lỗi xảy ra khi chia sẻ mã.", "error");
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    showToast("Có lỗi xảy ra khi chia sẻ mã.", "error");
+                }
+            });
+
+        // Xử lý sao chép liên kết
+        document
+            .getElementById("copyLinkBtn")
+            .addEventListener("click", function () {
+                const shareUrl = document.getElementById("shareUrl").textContent;
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    showToast("Đã sao chép liên kết vào clipboard!", "success");
+                });
+            });
+
+        // Xử lý mở liên kết
+        document
+            .getElementById("openLinkBtn")
+            .addEventListener("click", function () {
+                const shareUrl = document.getElementById("shareUrl").textContent;
+                window.open(shareUrl, "_blank");
+            });
+
+        // Xử lý đóng modal
+        document
+            .getElementById("closeModalBtn")
+            .addEventListener("click", closeShareModal);
+        document
+            .getElementById("closeModalBtn2")
+            .addEventListener("click", closeShareModal);
+
+        // Đóng modal khi nhấn bên ngoài modal
+        window.addEventListener("click", function (event) {
+            const modal = document.getElementById("shareModal");
+            if (event.target === modal) {
+                closeShareModal();
+            }
+        });
 
         const sidebar = document.getElementById("sidebar");
         const sidebarToggle = document.getElementById("sidebarToggle");
         const closeSidebarBtn = document.getElementById("closeSidebarBtn");
         const inputRequired = document.getElementById("inputRequired");
-        const inputValueContainer = document.getElementById("inputValueContainer");
+        const inputValueContainer = document.getElementById(
+            "inputValueContainer"
+        );
         const runBtn = document.getElementById("runBtn");
         const clearBtn = document.getElementById("clearBtn");
         const saveBtn = document.getElementById("saveBtn");
@@ -386,12 +694,19 @@
 
         inputRequired.addEventListener("change", function () {
             inputValueContainer.style.display = this.checked ? "block" : "none";
+            if (!this.checked) {
+                document.getElementById("inputValue").value = "";
+            }
         });
 
         settingsBtn.addEventListener("click", function () {
             advancedOptions.classList.toggle("show");
-            settingsBtn.querySelector("i:last-child").classList.toggle("fa-chevron-down");
-            settingsBtn.querySelector("i:last-child").classList.toggle("fa-chevron-right");
+            settingsBtn
+                .querySelector("i:last-child")
+                .classList.toggle("fa-chevron-down");
+            settingsBtn
+                .querySelector("i:last-child")
+                .classList.toggle("fa-chevron-right");
         });
 
         themeToggle.addEventListener("change", function () {
@@ -406,16 +721,17 @@
 
             try {
                 runBtn.disabled = true;
-                runBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> <span class="hidden sm:inline">Đang chạy...</span>';
+                runBtn.innerHTML =
+                    '<i class="fas fa-spinner fa-spin mr-2"></i> <span class="hidden sm:inline">Đang chạy...</span>';
                 const response = await fetch("/run-python", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
                         code: code,
                         input_values: inputRequired.checked ? inputValue.split("\n") : []
-                    }),
+                    })
                 });
 
                 const contentType = response.headers.get("content-type");
@@ -449,12 +765,14 @@
                 resultArea.style.maxHeight = "50vh";
                 resultContent.style.display = "block";
                 toggleResult.innerHTML = '<i class="fas fa-chevron-down"></i>';
-                resultContent.textContent = "Đã xảy ra lỗi khi chạy mã Python: " + error.message;
+                resultContent.textContent =
+                    "Đã xảy ra lỗi khi chạy mã Python: " + error.message;
                 resultContent.classList.add("text-red-500");
                 resultContent.classList.remove("text-green-400");
             } finally {
                 runBtn.disabled = false;
-                runBtn.innerHTML = '<i class="fas fa-play mr-2"></i> <span class="hidden sm:inline">Chạy</span>';
+                runBtn.innerHTML =
+                    '<i class="fas fa-play mr-2"></i> <span class="hidden sm:inline">Chạy</span>';
                 editor.refresh();
             }
         });
@@ -482,42 +800,51 @@
 
             try {
                 shareBtn.disabled = true;
-                shareBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> <span class="hidden sm:inline">Đang chia sẻ...</span>';
+                shareBtn.innerHTML =
+                    '<i class="fas fa-spinner fa-spin mr-2"></i> <span class="hidden sm:inline">Đang chia sẻ...</span>';
                 const response = await fetch("/share-code", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
+                        "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({ code: code }),
+                    body: JSON.stringify({ code: code })
                 });
                 const result = await response.json();
                 if (result.share_url) {
                     const shareUrl = `https://python-cli-webapp.vercel.app${result.share_url}`;
-                    navigator.clipboard.writeText(shareUrl).then(() => {
-                        alert(`Mã của bạn đã được chia sẻ. URL đã được sao chép vào clipboard: ${shareUrl}`);
-                    }, (err) => {
-                        alert(`Mã của bạn đã được chia sẻ. URL: ${shareUrl}`);
-                    });
+                    navigator.clipboard.writeText(shareUrl).then(
+                        () => {
+                            showToast(
+                                `Mã của bạn đã được chia sẻ. URL đã được sao chép vào clipboard: ${shareUrl}`
+                            );
+                        },
+                        (err) => {
+                            showToast(`Mã của bạn đã được chia sẻ. URL: ${shareUrl}`);
+                        }
+                    );
                 } else {
-                    alert("Có lỗi xảy ra khi chia sẻ mã.");
+                    showToast("Có lỗi xảy ra khi chia sẻ mã.");
                 }
             } catch (error) {
                 console.error("Error:", error);
-                alert("Có lỗi xảy ra khi chia sẻ mã.");
+                showToast("Có lỗi xảy ra khi chia sẻ mã.");
             } finally {
                 shareBtn.disabled = false;
-                shareBtn.innerHTML = '<i class="fas fa-share-alt mr-2"></i> <span class="hidden sm:inline">Chia sẻ</span>';
+                shareBtn.innerHTML =
+                    '<i class="fas fa-share-alt mr-2"></i> <span class="hidden sm:inline">Chia sẻ</span>';
             }
         });
 
         fullscreenBtn.addEventListener("click", function () {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen();
-                fullscreenBtn.innerHTML = '<i class="fas fa-compress-arrows-alt mr-2"></i>Thu nhỏ';
+                fullscreenBtn.innerHTML =
+                    '<i class="fas fa-compress-arrows-alt mr-2"></i>Thu nhỏ';
             } else {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
-                    fullscreenBtn.innerHTML = '<i class="fas fa-expand-arrows-alt mr-2"></i>Toàn màn hình';
+                    fullscreenBtn.innerHTML =
+                        '<i class="fas fa-expand-arrows-alt mr-2"></i>Toàn màn hình';
                 }
             }
         });
@@ -536,8 +863,8 @@
             editor.refresh();
         });
 
-        document.addEventListener('keydown', function (event) {
-            if (event.ctrlKey && event.key === 'Enter') {
+        document.addEventListener("keydown", function (event) {
+            if (event.ctrlKey && event.key === "Enter") {
                 runBtn.click();
             }
         });
@@ -559,13 +886,13 @@ for i in range(10):
         const resizeObserver = new ResizeObserver(() => {
             editor.refresh();
         });
-        resizeObserver.observe(document.querySelector('.editor-container'));
+        resizeObserver.observe(document.querySelector(".editor-container"));
 
         function addLibrary(libraryName) {
-            const libraryList = document.getElementById('libraryList');
-            const li = document.createElement('li');
+            const libraryList = document.getElementById("libraryList");
+            const li = document.createElement("li");
             li.textContent = libraryName;
-            li.classList.add('library-item');
+            li.classList.add("library-item");
             libraryList.appendChild(li);
         }
 
