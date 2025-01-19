@@ -136,10 +136,10 @@
 <body class="min-h-screen flex flex-col justify-between bg-gray-900">
     <header class="bg-gray-800 py-4 px-6 sm:px-10 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-blue-400">Code Shared</h1>
+            <h1 class="text-2xl font-bold text-blue-400">Code Viewer Pro</h1>
             <a href="/"
                 class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full text-sm transition duration-300 flex items-center">
-                <i class="fas fa-home mr-2"></i>Home
+                <i class="fas fa-home mr-2"></i>Trang chủ
             </a>
         </div>
     </header>
@@ -188,7 +188,7 @@
         <div class="container mx-auto px-4">
             <div class="flex flex-col sm:flex-row justify-between items-center">
                 <div class="text-center sm:text-left mb-4 sm:mb-0 text-gray-400">
-                    <p>↪2025 | Powered by <a href="https://linktr.ee/tanbaycu" target="_blank" rel="noopener noreferrer"
+                    <p>2025 | Powered by <a href="https://linktr.ee/tanbaycu" target="_blank" rel="noopener noreferrer"
                             class="tanbaycu-effect">tanbaycu</a></p>
                 </div>
 
@@ -279,6 +279,14 @@
                 return 'Unknown';
             }
         }
+
+       
+        document.addEventListener('DOMContentLoaded', function () {
+            const codeContent = editor.getValue();
+            if (!codeContent || codeContent.trim() === '') {
+                window.location.href = '/404.html';
+            }
+        });
     </script>
 </body>
 
