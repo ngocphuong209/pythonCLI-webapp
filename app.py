@@ -28,7 +28,7 @@ app = Flask(__name__)
 app.secret_key = "2Mr4wbDS37QDLvDUQEsWbUTx"
 
 # Giới hạn thời gian thực thi code (giây)
-EXECUTION_TIMEOUT = 90
+EXECUTION_TIMEOUT = 600
 
 # Danh sách các thư viện tích hợp sẵn được phép import
 ALLOWED_MODULES = {
