@@ -89,11 +89,11 @@ def clipython():
     return render_template("clipython.html")
 
 @app.route("/about")
-def clipython():
+def about():
     return render_template("about.html")
 
 @app.route("/contacts")
-def clipython():
+def contacts():
     return render_template("contacts.html")
 
 @app.errorhandler(413)
