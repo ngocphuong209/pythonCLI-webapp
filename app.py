@@ -92,6 +92,10 @@ def clipython():
 def clipython():
     return render_template("about.html")
 
+@app.route("/contacts")
+def clipython():
+    return render_template("contacts.html")
+
 @app.errorhandler(413)
 def request_entity_too_large(error):
     return jsonify({"error": "File is too large! The limit is 100MB."}), 413
