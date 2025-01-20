@@ -4,209 +4,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Viewer Pro</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Code Viewer - tanbaycu Python CLI Webapp</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/fold/foldgutter.min.css">
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png" />
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Fira+Code&display=swap');
+
+        :root {
+            --bg-color: #f4f4f8;
+            --text-color: #333;
+            --accent-color: #3498db;
+            --secondary-color: #2ecc71;
+            --tertiary-color: #e74c3c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #1a1a1a;
-            color: #f0f0f0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn,
+        #theme-select {
+            background-color: white;
+            color: var(--accent-color);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover,
+        #theme-select:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        #theme-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            padding-right: 2rem;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #code-editor {
+            flex-grow: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .CodeMirror {
             height: auto;
-            min-height: 300px;
-            max-height: calc(100vh - 250px);
+            font-family: 'Fira Code', monospace;
             font-size: 14px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            background-color: white;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        @media (min-width: 640px) {
-            .CodeMirror {
-                font-size: 16px;
+        .stats span {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+        }
+
+        .mode-switch,
+        .fullscreen-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .mode-switch:hover,
+        .fullscreen-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .mode-switch svg,
+        .fullscreen-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn-group {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .btn,
+            #theme-select {
+                flex: 1;
+                text-align: center;
+                padding: 0.75rem 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            #theme-select {
+                margin-top: 0.5rem;
+            }
+
+            .stats {
+                flex-wrap: wrap;
+                justify-content: space-around;
+            }
+
+            .stats span {
+                flex-basis: 45%;
+                text-align: center;
+                margin-bottom: 0.5rem;
             }
         }
 
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #2d3748;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #4a5568;
-            border-radius: 4px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #718096;
-        }
-
-        .tooltip {
-            visibility: hidden;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #2d3748;
-            color: #fff;
-            text-align: center;
-            padding: 5px 10px;
-            border-radius: 6px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .tooltip-container:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .glow {
-            box-shadow: 0 0 10px rgba(66, 153, 225, 0.5);
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
+        @media (max-width: 480px) {
+            .btn-group {
+                flex-wrap: wrap;
             }
 
-            to {
-                opacity: 1;
+            .btn,
+            #theme-select {
+                flex-basis: 48%;
+            }
+
+            .stats span {
+                flex-basis: 100%;
             }
         }
 
-        .animate-slide-up {
-            animation: slideUp 0.5s ease-in-out;
+        .mobile-menu {
+            display: none;
+            background-color: var(--accent-color);
+            padding: 0.5rem;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            justify-content: space-around;
+            z-index: 1000;
         }
 
-        @keyframes slideUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: flex;
             }
 
-            to {
-                transform: translateY(0);
-                opacity: 1;
+            main {
+                padding-bottom: 4rem;
             }
         }
 
-        .tanbaycu-effect {
-            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
-            background-size: 200% 200%;
-            animation: gradient 5s ease infinite;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: bold;
+        .dark-mode {
+            --bg-color: #1a1a2e;
+            --text-color: #e0e0e0;
+            --accent-color: #3a506b;
+            --secondary-color: #16a085;
         }
 
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
+        .dark-mode .CodeMirror {
+            filter: invert(1) hue-rotate(180deg);
         }
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col justify-between bg-gray-900">
-    <header class="bg-gray-800 py-4 px-6 sm:px-10 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-blue-400">Code Viewer Pro</h1>
-            <a href="/"
-                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full text-sm transition duration-300 flex items-center">
-                <i class="fas fa-home mr-2"></i>Trang chủ
-            </a>
-        </div>
-    </header>
-
-    <main class="flex-grow container mx-auto px-4 py-8 animate-fade-in">
-        <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden backdrop-filter backdrop-blur-lg">
-            <div class="p-6 border-b border-gray-700">
-                <div class="flex flex-wrap justify-between items-center mb-4">
-                    <h2 class="text-xl font-semibold text-blue-300">Mã được Chia sẻ</h2>
-                    <div class="flex space-x-2">
-                        <button id="copy-btn"
-                            class="tooltip-container bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full text-sm transition duration-300 flex items-center">
-                            <i class="fas fa-copy mr-2"></i>Sao chép
-                            <span class="tooltip">Sao chép mã vào clipboard</span>
-                        </button>
-                        <button id="download-btn"
-                            class="tooltip-container bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-full text-sm transition duration-300 flex items-center">
-                            <i class="fas fa-download mr-2"></i>Tải xuống
-                            <span class="tooltip">Tải mã nguồn về máy</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="flex items-center justify-end">
-                    <label for="theme-select" class="mr-2 text-sm text-gray-400">Giao diện:</label>
-                    <select id="theme-select"
-                        class="bg-gray-700 text-white border border-gray-600 rounded-full px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option value="monokai">Monokai</option>
-                        <option value="dracula">Dracula</option>
-                        <option value="solarized">Solarized</option>
-                        <option value="material">Material</option>
-                    </select>
+<body>
+    <div class="container">
+        <header>
+            <div class="controls">
+                <select id="theme-select" aria-label="Chọn giao diện">
+                    <option value="default">Default</option>
+                    <option value="monokai">Monokai</option>
+                    <option value="dracula">Dracula</option>
+                    <option value="solarized">Solarized</option>
+                    <option value="material">Material</option>
+                </select>
+                <div class="btn-group">
+                    <button id="copy-btn" class="btn" aria-label="Sao chép mã">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span class="btn-text">Sao chép</span>
+                    </button>
+                    <button id="download-btn" class="btn" aria-label="Tải xuống mã">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        <span class="btn-text">Tải xuống</span>
+                    </button>
                 </div>
             </div>
-            <div id="shared-code" class="p-6 custom-scrollbar"></div>
-            <div class="bg-gray-700 p-4 flex flex-wrap justify-between items-center text-sm">
-                <div class="mb-2 sm:mb-0">Dòng: <span id="line-count" class="font-semibold text-blue-300">0</span></div>
-                <div class="mb-2 sm:mb-0">Ký tự: <span id="char-count" class="font-semibold text-blue-300">0</span>
-                </div>
-                <div id="language-info" class="w-full sm:w-auto text-center sm:text-left">Ngôn ngữ: <span
-                        class="font-semibold text-blue-300">Python</span></div>
+        </header>
+        <main>
+            <div id="code-editor"></div>
+            <div class="stats">
+                <span>Dòng: <span id="line-count">0</span></span>
+                <span>Ký tự: <span id="char-count">0</span></span>
+                <span>Ngôn ngữ: <span id="language-info">Unknown</span></span>
             </div>
+        </main>
+        <div class="mobile-menu">
+            <button class="mode-switch" id="mode-switch" aria-label="Chuyển đổi chế độ sáng/tối">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+            <button class="fullscreen-btn" id="fullscreen-btn" aria-label="Chế độ toàn màn hình">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
+                    </path>
+                </svg>
+            </button>
         </div>
-    </main>
-
-    <footer class="bg-gray-800 py-6 mt-8">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col sm:flex-row justify-between items-center">
-                <div class="text-center sm:text-left mb-4 sm:mb-0 text-gray-400">
-                    <p>2025 | Powered by <a href="https://linktr.ee/tanbaycu" target="_blank" rel="noopener noreferrer"
-                            class="tanbaycu-effect">tanbaycu</a></p>
-                </div>
-
-            </div>
-        </div>
-    </footer>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/fold/foldcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/fold/foldgutter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/fold/brace-fold.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/fold/comment-fold.min.js"></script>
     <script>
-        const editor = CodeMirror(document.getElementById("shared-code"), {
+        const editor = CodeMirror(document.getElementById("code-editor"), {
             value: `{{ code | safe }}`,
             mode: "python",
-            theme: "monokai",
+            theme: "default",
             lineNumbers: true,
             readOnly: true,
             lineWrapping: true,
             viewportMargin: Infinity,
+            foldGutter: true,
+            gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
         });
 
         function updateCounts() {
@@ -214,7 +319,7 @@
             document.getElementById('line-count').textContent = editor.lineCount();
             document.getElementById('char-count').textContent = code.length;
             const detectedLanguage = detectLanguage(code);
-            document.getElementById('language-info').innerHTML = `Ngôn ngữ: <span class="font-semibold text-blue-300">${detectedLanguage}</span>`;
+            document.getElementById('language-info').textContent = detectedLanguage;
         }
         updateCounts();
 
@@ -245,8 +350,7 @@
             editor.setOption('theme', theme);
         });
 
-        // Load additional themes
-        const themes = ['dracula', 'solarized', 'material'];
+        const themes = ['monokai', 'dracula', 'solarized', 'material'];
         themes.forEach(theme => {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
@@ -257,7 +361,15 @@
         function showNotification(message, type = 'success') {
             const notification = document.createElement('div');
             notification.textContent = message;
-            notification.className = `fixed bottom-4 right-4 p-4 rounded-lg text-white ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} transition-opacity duration-300 animate-slide-up`;
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.right = '20px';
+            notification.style.padding = '10px 20px';
+            notification.style.borderRadius = '5px';
+            notification.style.backgroundColor = type === 'success' ? '#2ecc71' : '#e74c3c';
+            notification.style.color = 'white';
+            notification.style.fontWeight = 'bold';
+            notification.style.transition = 'opacity 0.3s ease';
             document.body.appendChild(notification);
 
             setTimeout(() => {
@@ -280,13 +392,80 @@
             }
         }
 
-       
+        function handleThemeChange() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        document.getElementById('mode-switch').addEventListener('click', handleThemeChange);
+
+        document.getElementById('fullscreen-btn').addEventListener('click', function () {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             const codeContent = editor.getValue();
             if (!codeContent || codeContent.trim() === '') {
                 window.location.href = '/404.html';
             }
+            const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const storedDarkMode = localStorage.getItem('darkMode');
+
+            if (storedDarkMode === 'true' || (storedDarkMode === null && prefersDarkMode)) {
+                document.body.classList.add('dark-mode');
+            }
         });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && e.key === 'c') {
+                document.getElementById('copy-btn').click();
+            } else if (e.ctrlKey && e.key === 'd') {
+                e.preventDefault();
+                document.getElementById('download-btn').click();
+            } else if (e.ctrlKey && e.key === 't') {
+                document.getElementById('theme-select').focus();
+            } else if (e.ctrlKey && e.key === 'm') {
+                document.getElementById('mode-switch').click();
+            } else if (e.key === 'F11') {
+                e.preventDefault();
+                document.getElementById('fullscreen-btn').click();
+            }
+        });
+
+        // Adjust editor height to fill available space
+        function adjustEditorHeight() {
+            adjustLayout();
+        }
+
+        function adjustLayout() {
+            const isMobile = window.innerWidth <= 768;
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const mobileMenuHeight = isMobile ? document.querySelector('.mobile-menu').offsetHeight : 0;
+            const statsHeight = document.querySelector('.stats').offsetHeight;
+            const availableHeight = window.innerHeight - headerHeight - statsHeight - mobileMenuHeight - 40; // 40px for padding
+            document.getElementById('code-editor').style.height = `${availableHeight}px`;
+            editor.refresh();
+
+            // Adjust button text for mobile
+            const btnTexts = document.querySelectorAll('.btn-text');
+            btnTexts.forEach(text => {
+                text.style.display = isMobile ? 'none' : 'inline';
+            });
+        }
+
+        window.addEventListener('resize', adjustLayout);
+        window.addEventListener('orientationchange', adjustLayout);
+        document.addEventListener('DOMContentLoaded', adjustLayout);
+
+        window.addEventListener('resize', adjustEditorHeight);
+        adjustEditorHeight();
     </script>
 </body>
 
