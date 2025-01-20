@@ -88,7 +88,13 @@ def homepage():
 def clipython():
     return render_template("clipython.html")
 
+@app.route("/about")
+def clipython():
+    return render_template("about.html")
 
+@app.route("/contacts")
+def clipython():
+    return render_template("contacts.html")
 
 @app.errorhandler(413)
 def request_entity_too_large(error):
