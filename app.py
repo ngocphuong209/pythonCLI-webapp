@@ -22,6 +22,7 @@ import array
 import decimal
 import fractions
 import operator
+import time
 
 app = Flask(__name__)
 app.secret_key = "2Mr4wbDS37QDLvDUQEsWbUTx"
@@ -46,6 +47,7 @@ ALLOWED_MODULES = {
     "decimal": decimal,
     "fractions": fractions,
     "operator": operator,
+    "time": time,
  
     
 }
