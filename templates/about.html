@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <!-- Primary Meta Tags -->
+    <title>About Python Code Playground - Interactive Python CLI Web Application</title>
+    <meta name="title" content="About Python Code Playground - Interactive Python CLI Web Application">
+    <meta name="description" content="Learn about the Python Code Playground, its creator, achievements, and the technologies behind this interactive Python CLI web application.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png">
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://python-cli-webapp.vercel.app/about">
+    <meta property="og:title" content="About Python Code Playground - Interactive Python CLI Web Application">
+    <meta property="og:description" content="Learn about the Python Code Playground, its creator, achievements, and the technologies behind this interactive Python CLI web application.">
+    <meta property="og:image" content="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://python-cli-webapp.vercel.app/about">
+    <meta property="twitter:title" content="About Python Code Playground - Interactive Python CLI Web Application">
+    <meta property="twitter:description" content="Learn about the Python Code Playground, its creator, achievements, and the technologies behind this interactive Python CLI web application.">
+    <meta property="twitter:image" content="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    colors: {
+                        'custom-purple': '#8A2BE2',
+                        'custom-blue': '#4169E1',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <style>
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .gradient-bg {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(45deg, #8A2BE2, #4169E1);
+        }
+    </style>
+</head>
+
+<body class="h-full gradient-bg text-gray-800 antialiased" x-data="{ mobileMenuOpen: false }">
+    <!-- Navigation -->
+    <nav class="bg-white bg-opacity-95 fixed w-full z-10 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="index.html" class="flex items-center">
+                <img src="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png" class="h-8 mr-3" alt="Python CLI Logo">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap font-mono">Python CLI</span>
+            </a>
+            <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                </svg>
+            </button>
+            <div class="hidden w-full md:block md:w-auto" :class="{'block': mobileMenuOpen, 'hidden': !mobileMenuOpen}" id="navbar-default">
+                <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent">
+                    <li>
+                        <a href="index.html" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-custom-purple md:p-0">Home</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 pl-3 pr-4 text-custom-purple rounded md:bg-transparent md:p-0" aria-current="page">About</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-custom-purple md:p-0">Features</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-custom-purple md:p-0">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <div class="min-h-screen flex flex-col justify-center items-center px-4 py-16 sm:px-6 lg:px-8">
+        <!-- About Section -->
+        <div class="w-full max-w-4xl bg-white bg-opacity-95 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden">
+            <div class="p-6 sm:p-8 lg:p-10">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-center">
+                    <span class="text-gradient font-mono">About Python Code Playground</span>
+                </h1>
+                <p class="text-gray-600 text-lg sm:text-xl mb-8 leading-relaxed text-center">
+                    Empowering developers to write, test, and share Python code effortlessly in the browser.
+                </p>
+                
+                <div class="space-y-12">
+                    <section>
+                        <h2 class="text-2xl font-semibold text-custom-purple mb-4">Our Mission</h2>
+                        <p class="text-gray-600">
+                            Python Code Playground aims to democratize Python programming by providing a user-friendly, powerful, and accessible platform. We eliminate the need for complex setups, allowing users to focus on what matters most: writing great code.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-2xl font-semibold text-custom-purple mb-4">The Creator</h2>
+                        <div class="flex items-center space-x-4">
+                            <img src="https://i.postimg.cc/vmTmqBVL/z6247885063318-f060932fd73cc79750c201896b448104.jpg" alt="Tan Bay Cu" class="w-24 h-24 rounded-full object-cover">
+                            <div>
+                                <h3 class="text-xl font-semibold">Tan Bay Cu</h3>
+                                <p class="text-gray-600">
+                                    A passionate software developer with expertise in web technologies and Python programming. Tan Bay Cu created Python Code Playground to bridge the gap between learning and practical application in Python programming.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2 class="text-2xl font-semibold text-custom-purple mb-4">Achievements and Impact</h2>
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <li class="bg-gray-100 p-4 rounded-lg">
+                                <span class="text-3xl font-bold text-custom-blue">100k+</span>
+                                <p>Users worldwide</p>
+                            </li>
+                            <li class="bg-gray-100 p-4 rounded-lg">
+                                <span class="text-3xl font-bold text-custom-blue">#1</span>
+                                <p>Featured on top programming education platforms</p>
+                            </li>
+                            <li class="bg-gray-100 p-4 rounded-lg">
+                                <span class="text-3xl font-bold text-custom-blue">10+</span>
+                                <p>Universities using our platform in CS courses</p>
+                            </li>
+                            <li class="bg-gray-100 p-4 rounded-lg">
+                                <span class="text-3xl font-bold text-custom-blue">50+</span>
+                                <p>Open-source Python projects contributed to</p>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2 class="text-2xl font-semibold text-custom-purple mb-4">Technologies Used</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://i.postimg.cc/Xqmp47M3/images.png" alt="React" class="w-8 h-8">
+                                <span>HTML&TailwindCSS</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <img src="https://i.postimg.cc/RFPWpLXW/flask-python.png" alt="Flask" class="w-8 h-8">
+                                <span>Flask</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <img src="https://i.postimg.cc/MTRQWDYp/Baboon-svg.png" alt="CodeMirror" class="w-8 h-8">
+                                <span>CodeMirror</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <img src="https://i.postimg.cc/gJGhTJpT/22566908-B76-F-4-C83-B90-F-EE6714-DFC32-E.png" alt="Monaco Editor" class="w-8 h-8">
+                                <span>Monaco Editor</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <img src="https://i.postimg.cc/yNhKs3Zz/download.png" alt="Docker" class="w-8 h-8">
+                                <span>Docker</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section x-data="{ open: false }">
+                        <h2 class="text-2xl font-semibold text-custom-purple mb-4">Future Developments</h2>
+                        <p class="text-gray-600 mb-4">
+                            We're constantly working to improve Python Code Playground. Here are some exciting features on our roadmap:
+                        </p>
+                        <ul class="list-disc list-inside text-gray-600 space-y-2 mb-4" x-show="open" x-transition>
+                            <li>Collaborative coding sessions</li>
+                            <li>Integration with version control systems</li>
+                            <li>Support for additional programming languages</li>
+                            <li>Advanced data visualization tools</li>
+                        </ul>
+                        <button @click="open = !open" class="text-custom-blue hover:underline focus:outline-none">
+                            <span x-text="open ? 'Show less' : 'Show more'"></span>
+                            <svg class="inline-block w-4 h-4 ml-1" :class="{'rotate-180': open}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </section>
+                </div>
+
+                <div class="mt-12 flex justify-center">
+                    <a href="/clipython" class="inline-flex items-center justify-center bg-gradient-to-r from-custom-purple to-custom-blue text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:from-custom-purple hover:to-custom-blue transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-purple">
+                        Try Python Code Playground
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-white text-sm">
+            <p>&copy; 2025 Python Code Playground | Powered by <a href="https://linktr.ee/tanbaycu" target="_blank" class="text-teal-400 hover:text-teal-600 font-bold no-underline">tanbaycu</a></p>
+        </footer>
+    </div>
+
+    <!-- Scroll to top button -->
+    <button id="scrollToTopBtn" class="fixed bottom-5 right-5 bg-custom-purple text-white p-2 rounded-full shadow-lg opacity-0 transition-opacity duration-300" onclick="scrollToTop()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    <script>
+        // Scroll to top functionality
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            var scrollToTopBtn = document.getElementById("scrollToTopBtn");
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollToTopBtn.style.opacity = "1";
+            } else {
+                scrollToTopBtn.style.opacity = "0";
+            }
+        }
+
+        function scrollToTop() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+    </script>
+</body>
+
+</html>
