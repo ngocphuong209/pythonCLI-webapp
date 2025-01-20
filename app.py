@@ -23,6 +23,7 @@ import decimal
 import fractions
 import operator
 import time
+import requests  # Thêm thư viện requests
 
 app = Flask(__name__)
 app.secret_key = "2Mr4wbDS37QDLvDUQEsWbUTx"
@@ -48,9 +49,12 @@ ALLOWED_MODULES = {
     "fractions": fractions,
     "operator": operator,
     "time": time,
- 
-    
 }
+
+# Thêm cấu hình cho Gemini API
+API_KEY = "AIzaSyDjUan7t5sKlJhda_OEfTUenYgoH2TknVY"
+API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent"
+SYSTEM_PROMPT = "Bạn là trợ lý ảo được tanbaycu phát triển và được tích hợp sẵn vào web Python CLI để hỗ trợ mọi thắc mắc từ người dùng. Hãy trở lại ngắn gọn, tập trung thằng vào vấn đề, tránh nói lang mang, gây khó hiểu. Hãy sử dụng icon để thể hiện cảm xúc, tích cực hỗ trợ hết mình cho người dùng lập trình."
 
 class CustomStringIO(StringIO):
     def __init__(self, *args, **kwargs):
@@ -194,6 +198,59 @@ def install_library():
         "success": False,
         "error": "Installing libraries dynamically is not supported for security reasons.",
     })
+
+# Thêm route mới cho AI chat
+@app.route("/ai-chat", methods=["POST"])
+def ai_chat():
+    data = request.json
+    user_message = data.get("message", "")
+
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    payload = {
+        "contents": [
+            {
+                "role": "user",
+                "parts": [{"text": SYSTEM_PROMPT}]
+            },
+            {
+                "role": "user",
+                "parts": [{"text": user_message}]
+            }
+        ],
+        "generationConfig": {
+            "temperature": 0.7,
+            "topK": 40,
+            "topP": 0.95,
+            "maxOutputTokens": 1024,
+        }
+    }
+
+    try:
+        response = requests.post(
+            f"{API_URL}?key={API_KEY}",
+            headers=headers,
+            json=payload
+        )
+        response.raise_for_status()
+        
+        result = response.json()
+        print("API Response:", json.dumps(result, indent=2))  # Debug print
+        
+        if 'candidates' in result and result['candidates']:
+            ai_response = result['candidates'][0]['content']['parts'][0]['text']
+            return jsonify({'response': ai_response})
+        else:
+            error_message = result.get('error', {}).get('message', 'Unknown error occurred')
+            return jsonify({'error': f'No valid response from AI: {error_message}'}), 500
+    except requests.exceptions.RequestException as e:
+        return jsonify({'error': f'API request failed: {str(e)}'}), 500
+    except KeyError as e:
+        return jsonify({'error': f'Unexpected response format: {str(e)}'}), 500
+    except Exception as e:
+        return jsonify({'error': f'An unexpected error occurred: {str(e)}'}), 500
 
 @app.errorhandler(404)
 def page_not_found(error):

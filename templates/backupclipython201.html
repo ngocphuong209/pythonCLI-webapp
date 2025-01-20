@@ -83,12 +83,12 @@
             max-height: 50vh;
         }
 
-        #resultContent {
+        #resultContent,
+        #consoleContent {
             max-height: calc(50vh - 40px);
             overflow-y: auto;
         }
 
-        /* New styles for the improved sidebar */
         #sidebar {
             background: linear-gradient(135deg, #2a3f5f 0%, #1e2a3a 100%);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -218,7 +218,6 @@
             }
         }
 
-        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -226,75 +225,300 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.7);
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            opacity: 1;
         }
 
         .modal-content {
             background-color: #2e3440;
-            padding: 20px;
-            border-radius: 10px;
+            border-radius: 15px;
             width: 90%;
             max-width: 500px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            padding: 20px;
+            border-bottom: 1px solid #3b4252;
         }
 
         .modal-header h2 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
             color: #88c0d0;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #d8dee9;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #bf616a;
         }
 
         .modal-body {
+            padding: 20px;
+        }
+
+        .share-section,
+        .qr-section,
+        .share-options {
+            margin-bottom: 20px;
+        }
+
+        .share-section h3,
+        .qr-section h3,
+        .share-options h3 {
+            font-size: 1.2rem;
+            color: #eceff4;
+            margin-bottom: 10px;
+        }
+
+        .copy-link {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            background-color: #3b4252;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .copy-link input {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            background-color: transparent;
+            color: #eceff4;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #5e81ac;
+            border: none;
+            color: #eceff4;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background-color: #81a1c1;
+        }
+
+        .copy-btn i {
+            margin-right: 5px;
+        }
+
+        .qrcode-container {
+            display: flex;
+            justify-content: center;
+            background-color: #eceff4;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            color: #eceff4;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .facebook {
+            background-color: #3b5998;
+        }
+
+        .twitter {
+            background-color: #1da1f2;
+        }
+
+        .linkedin {
+            background-color: #0077b5;
+        }
+
+        .email {
+            background-color: #d44638;
         }
 
         .modal-footer {
             display: flex;
             justify-content: flex-end;
             gap: 10px;
-            margin-top: 20px;
+            padding: 20px;
+            border-top: 1px solid #3b4252;
         }
 
-        .qrcode-container {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .copy-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background-color: #3b4252;
-            padding: 10px;
+        .btn {
+            padding: 10px 20px;
+            border: none;
             border-radius: 5px;
+            font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
-        .copy-link:hover {
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background-color: #5e81ac;
+            color: #eceff4;
+        }
+
+        .btn-primary:hover {
+            background-color: #81a1c1;
+        }
+
+        .btn-secondary {
             background-color: #4c566a;
+            color: #eceff4;
         }
 
-        .copy-link span {
-            flex-grow: 1;
-            word-break: break-all;
+        .btn-secondary:hover {
+            background-color: #6b7a8f;
         }
 
-        .copy-link i {
+        .btn i {
+            margin-right: 5px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-content>* {
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .modal-content>*:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .modal-content>*:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .modal-content>*:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .tab-buttons {
+            display: flex;
+            background-color: #3b4252;
+            border-bottom: 1px solid #4c566a;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background-color: transparent;
+            border: none;
+            color: #d8dee9;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .tab-button.active {
+            background-color: #4c566a;
             color: #88c0d0;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        #consoleInput {
+            width: 100%;
+            padding: 10px;
+            background-color: #3b4252;
+            border: none;
+            border-top: 1px solid #4c566a;
+            color: #d8dee9;
+            font-family: "Fira Code", monospace;
+        }
+
+        #consoleInput:focus {
+            outline: none;
+            background-color: #434c5e;
+        }
+
+        #consoleOutput {
+            padding: 10px;
+            font-family: "Fira Code", monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .console-input {
+            color: #88c0d0;
+        }
+
+        .console-output {
+            color: #a3be8c;
+        }
+
+        .console-error {
+            color: #bf616a;
         }
     </style>
 </head>
@@ -344,27 +568,53 @@
         <div id="shareModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>Chia sẻ mã</h2>
-                    <button id="closeModalBtn" class="text-white focus:outline-none">
+                    <h2>Chia sẻ mã của bạn</h2>
+                    <button id="closeModalBtn" class="close-btn">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="copy-link" id="copyLinkBtn">
-                        <span id="shareUrl"></span>
-                        <i class="fas fa-copy"></i>
+                    <div class="share-section">
+                        <h3>Liên kết chia sẻ</h3>
+                        <div class="copy-link" id="copyLinkBtn">
+                            <input type="text" id="shareUrl" readonly />
+                            <button class="copy-btn">
+                                <i class="fas fa-copy"></i>
+                                <span>Sao chép</span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="qrcode-container">
-                        <div id="qrcode"></div>
+                    <div class="qr-section">
+                        <h3>Mã QR</h3>
+                        <div class="qrcode-container">
+                            <div id="qrcode"></div>
+                        </div>
+                    </div>
+                    <div class="share-options">
+                        <h3>Chia sẻ qua</h3>
+                        <div class="social-buttons">
+                            <button class="social-btn facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </button>
+                            <button class="social-btn twitter">
+                                <i class="fab fa-twitter"></i>
+                            </button>
+                            <button class="social-btn linkedin">
+                                <i class="fab fa-linkedin-in"></i>
+                            </button>
+                            <button class="social-btn email">
+                                <i class="fas fa-envelope"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="openLinkBtn"
-                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                    <button id="openLinkBtn" class="btn btn-primary">
+                        <i class="fas fa-external-link-alt"></i>
                         Mở liên kết
                     </button>
-                    <button id="closeModalBtn2"
-                        class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                    <button id="closeModalBtn2" class="btn btn-secondary">
+                        <i class="fas fa-times"></i>
                         Đóng
                     </button>
                 </div>
@@ -419,7 +669,6 @@
                     <h3 class="text-lg font-semibold mb-2 text-blue-300">
                         Thư viện có sẵn:
                     </h3>
-
                     <div id="libraryList" class="grid grid-cols-2 gap-2 text-sm">
                         <!-- Thư viện sẽ được thêm động bằng JavaScript -->
                     </div>
@@ -438,13 +687,23 @@
         <!-- Result area -->
         <div id="resultArea" class="bg-gray-800 overflow-hidden transition-all duration-300 ease-in-out">
             <div class="flex justify-between items-center p-2 bg-gray-700">
-                <h2 class="text-lg font-semibold text-blue-400">Kết quả:</h2>
+                <div class="tab-buttons">
+                    <button id="resultTab" class="tab-button active">Kết quả</button>
+                    <button id="consoleTab" class="tab-button">Console</button>
+                </div>
                 <button id="toggleResult" class="text-white focus:outline-none">
                     <i class="fas fa-chevron-up"></i>
                 </button>
             </div>
-            <pre id="resultContent"
-                class="p-4 bg-gray-900 text-sm overflow-y-auto custom-scrollbar text-green-400"></pre>
+            <div id="resultContent" class="tab-content active">
+                <pre id="resultOutput"
+                    class="p-4 bg-gray-900 text-sm overflow-y-auto custom-scrollbar text-green-400"></pre>
+            </div>
+            <div id="consoleContent" class="tab-content">
+                <div id="consoleOutput" class="p-4 bg-gray-900 text-sm overflow-y-auto custom-scrollbar"></div>
+                <input type="text" id="consoleInput" placeholder="Nhập lệnh Python..."
+                    class="w-full p-2 bg-gray-800 text-white" />
+            </div>
         </div>
     </div>
 
@@ -459,6 +718,9 @@
     <script>
         let editor;
         let currentTheme = "nord";
+        let consoleHistory = [];
+        let historyIndex = -1;
+        let previousRuns = [];
 
         // Danh sách thư viện có sẵn
         const libraries = [
@@ -517,6 +779,18 @@
 
             // Khôi phục trạng thái từ localStorage
             restoreState();
+
+            // Thêm tính năng gợi ý code
+            editor.on("inputRead", function (editor, change) {
+                if (change.origin !== "+input") return;
+                const cur = editor.getCursor();
+                const token = editor.getTokenAt(cur);
+                if (token.type === "variable" || token.string === ".") {
+                    CodeMirror.showHint(editor, CodeMirror.hint.python, {
+                        completeSingle: false
+                    });
+                }
+            });
         }
 
         function saveState() {
@@ -582,29 +856,87 @@
             const qrcodeContainer = document.getElementById("qrcode");
 
             // Hiển thị URL chia sẻ
-            shareUrlElement.textContent = shareUrl;
+            shareUrlElement.value = shareUrl;
 
             // Tạo mã QR code
             qrcodeContainer.innerHTML = "";
             new QRCode(qrcodeContainer, {
                 text: shareUrl,
                 width: 200,
-                height: 200
+                height: 200,
+                colorDark: "#2e3440",
+                colorLight: "#eceff4"
             });
 
             // Hiển thị modal
             modal.style.display = "flex";
+            setTimeout(() => modal.classList.add("show"), 10);
         }
 
         function closeShareModal() {
             const modal = document.getElementById("shareModal");
-            modal.style.display = "none";
+            modal.classList.remove("show");
+            setTimeout(() => (modal.style.display = "none"), 300);
+        }
+
+        function updateCodeSuggestions() {
+            const currentCode = editor.getValue();
+            if (currentCode && !previousRuns.includes(currentCode)) {
+                previousRuns.unshift(currentCode);
+                if (previousRuns.length > 5) {
+                    previousRuns.pop();
+                }
+            }
+
+            CodeMirror.registerHelper("hint", "python", function (cm) {
+                const cursor = cm.getCursor();
+                const token = cm.getTokenAt(cursor);
+                const start = token.start;
+                const end = cursor.ch;
+                const line = cm.getLine(cursor.line);
+                const currentWord = line.slice(start, end);
+
+                const suggestions = [];
+                previousRuns.forEach((run) => {
+                    const lines = run.split("\n");
+                    lines.forEach((line) => {
+                        if (line.includes(currentWord) && !suggestions.includes(line)) {
+                            suggestions.push(line);
+                        }
+                    });
+                });
+
+                return {
+                    list: suggestions,
+                    from: CodeMirror.Pos(cursor.line, start),
+                    to: CodeMirror.Pos(cursor.line, end)
+                };
+            });
+        }
+
+        function saveConsoleState() {
+            localStorage.setItem("consoleHistory", JSON.stringify(consoleHistory));
+            localStorage.setItem("consoleOutput", consoleOutput.innerHTML);
+        }
+
+        function restoreConsoleState() {
+            const savedHistory = localStorage.getItem("consoleHistory");
+            if (savedHistory) {
+                consoleHistory = JSON.parse(savedHistory);
+                historyIndex = consoleHistory.length;
+            }
+
+            const savedOutput = localStorage.getItem("consoleOutput");
+            if (savedOutput) {
+                consoleOutput.innerHTML = savedOutput;
+            }
         }
 
         initializeEditor();
         renderLibraries();
+        restoreConsoleState();
 
-        // Xử lý sự kiện chia sẻ
+        // Event Listeners
         document
             .getElementById("shareBtn")
             .addEventListener("click", async function () {
@@ -631,25 +963,22 @@
                 }
             });
 
-        // Xử lý sao chép liên kết
         document
             .getElementById("copyLinkBtn")
             .addEventListener("click", function () {
-                const shareUrl = document.getElementById("shareUrl").textContent;
+                const shareUrl = document.getElementById("shareUrl").value;
                 navigator.clipboard.writeText(shareUrl).then(() => {
                     showToast("Đã sao chép liên kết vào clipboard!", "success");
                 });
             });
 
-        // Xử lý mở liên kết
         document
             .getElementById("openLinkBtn")
             .addEventListener("click", function () {
-                const shareUrl = document.getElementById("shareUrl").textContent;
+                const shareUrl = document.getElementById("shareUrl").value;
                 window.open(shareUrl, "_blank");
             });
 
-        // Xử lý đóng modal
         document
             .getElementById("closeModalBtn")
             .addEventListener("click", closeShareModal);
@@ -657,7 +986,6 @@
             .getElementById("closeModalBtn2")
             .addEventListener("click", closeShareModal);
 
-        // Đóng modal khi nhấn bên ngoài modal
         window.addEventListener("click", function (event) {
             const modal = document.getElementById("shareModal");
             if (event.target === modal) {
@@ -675,7 +1003,6 @@
         const runBtn = document.getElementById("runBtn");
         const clearBtn = document.getElementById("clearBtn");
         const saveBtn = document.getElementById("saveBtn");
-        const shareBtn = document.getElementById("shareBtn");
         const fullscreenBtn = document.getElementById("fullscreenBtn");
         const settingsBtn = document.getElementById("settingsBtn");
         const themeToggle = document.getElementById("themeToggle");
@@ -683,6 +1010,11 @@
         const resultArea = document.getElementById("resultArea");
         const resultContent = document.getElementById("resultContent");
         const toggleResult = document.getElementById("toggleResult");
+        const resultTab = document.getElementById("resultTab");
+        const consoleTab = document.getElementById("consoleTab");
+        const consoleContent = document.getElementById("consoleContent");
+        const consoleInput = document.getElementById("consoleInput");
+        const consoleOutput = document.getElementById("consoleOutput");
 
         sidebarToggle.addEventListener("click", () => {
             sidebar.classList.toggle("-translate-x-full");
@@ -740,35 +1072,52 @@
                     resultArea.style.maxHeight = "50vh";
                     resultContent.style.display = "block";
                     toggleResult.innerHTML = '<i class="fas fa-chevron-down"></i>';
-                    resultContent.textContent = result.output;
+                    document.getElementById("resultOutput").textContent = result.output;
 
                     if (result.error) {
-                        resultContent.classList.add("text-red-500");
-                        resultContent.classList.remove("text-green-400");
+                        document
+                            .getElementById("resultOutput")
+                            .classList.add("text-red-500");
+                        document
+                            .getElementById("resultOutput")
+                            .classList.remove("text-green-400");
                     } else {
-                        resultContent.classList.remove("text-red-500");
-                        resultContent.classList.add("text-green-400");
+                        document
+                            .getElementById("resultOutput")
+                            .classList.remove("text-red-500");
+                        document
+                            .getElementById("resultOutput")
+                            .classList.add("text-green-400");
                     }
                 } else {
                     const textResult = await response.text();
                     resultArea.style.maxHeight = "50vh";
                     resultContent.style.display = "block";
                     toggleResult.innerHTML = '<i class="fas fa-chevron-down"></i>';
-                    resultContent.textContent = "Lỗi server: " + textResult;
-                    resultContent.classList.add("text-red-500");
-                    resultContent.classList.remove("text-green-400");
+                    document.getElementById("resultOutput").textContent =
+                        "Lỗi server: " + textResult;
+                    document
+                        .getElementById("resultOutput")
+                        .classList.add("text-red-500");
+                    document
+                        .getElementById("resultOutput")
+                        .classList.remove("text-green-400");
                 }
 
-                resultContent.scrollTop = resultContent.scrollHeight;
+                document.getElementById("resultOutput").scrollTop =
+                    document.getElementById("resultOutput").scrollHeight;
+                updateCodeSuggestions();
             } catch (error) {
                 console.error("Error:", error);
                 resultArea.style.maxHeight = "50vh";
                 resultContent.style.display = "block";
                 toggleResult.innerHTML = '<i class="fas fa-chevron-down"></i>';
-                resultContent.textContent =
+                document.getElementById("resultOutput").textContent =
                     "Đã xảy ra lỗi khi chạy mã Python: " + error.message;
-                resultContent.classList.add("text-red-500");
-                resultContent.classList.remove("text-green-400");
+                document.getElementById("resultOutput").classList.add("text-red-500");
+                document
+                    .getElementById("resultOutput")
+                    .classList.remove("text-green-400");
             } finally {
                 runBtn.disabled = false;
                 runBtn.innerHTML =
@@ -795,46 +1144,6 @@
             link.click();
         });
 
-        shareBtn.addEventListener("click", async function () {
-            const code = editor.getValue();
-
-            try {
-                shareBtn.disabled = true;
-                shareBtn.innerHTML =
-                    '<i class="fas fa-spinner fa-spin mr-2"></i> <span class="hidden sm:inline">Đang chia sẻ...</span>';
-                const response = await fetch("/share-code", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ code: code })
-                });
-                const result = await response.json();
-                if (result.share_url) {
-                    const shareUrl = `https://python-cli-webapp.vercel.app${result.share_url}`;
-                    navigator.clipboard.writeText(shareUrl).then(
-                        () => {
-                            showToast(
-                                `Mã của bạn đã được chia sẻ. URL đã được sao chép vào clipboard: ${shareUrl}`
-                            );
-                        },
-                        (err) => {
-                            showToast(`Mã của bạn đã được chia sẻ. URL: ${shareUrl}`);
-                        }
-                    );
-                } else {
-                    showToast("Có lỗi xảy ra khi chia sẻ mã.");
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                showToast("Có lỗi xảy ra khi chia sẻ mã.");
-            } finally {
-                shareBtn.disabled = false;
-                shareBtn.innerHTML =
-                    '<i class="fas fa-share-alt mr-2"></i> <span class="hidden sm:inline">Chia sẻ</span>';
-            }
-        });
-
         fullscreenBtn.addEventListener("click", function () {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen();
@@ -854,13 +1163,93 @@
             if (isExpanded) {
                 resultArea.style.maxHeight = "40px";
                 resultContent.style.display = "none";
+                consoleContent.style.display = "none";
                 toggleResult.innerHTML = '<i class="fas fa-chevron-up"></i>';
             } else {
                 resultArea.style.maxHeight = "50vh";
-                resultContent.style.display = "block";
+                if (resultTab.classList.contains("active")) {
+                    resultContent.style.display = "block";
+                } else {
+                    consoleContent.style.display = "block";
+                }
                 toggleResult.innerHTML = '<i class="fas fa-chevron-down"></i>';
             }
             editor.refresh();
+        });
+
+        resultTab.addEventListener("click", function () {
+            resultTab.classList.add("active");
+            consoleTab.classList.remove("active");
+            resultContent.style.display = "block";
+            consoleContent.style.display = "none";
+        });
+
+        consoleTab.addEventListener("click", function () {
+            consoleTab.classList.add("active");
+            resultTab.classList.remove("active");
+            consoleContent.style.display = "block";
+            resultContent.style.display = "none";
+        });
+
+        consoleInput.addEventListener("keydown", async function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                const command = consoleInput.value;
+                consoleInput.value = "";
+
+                consoleHistory.push(command);
+                historyIndex = consoleHistory.length;
+
+                const inputElement = document.createElement("div");
+                inputElement.className = "console-input";
+                inputElement.textContent = ">>> " + command;
+                consoleOutput.appendChild(inputElement);
+
+                try {
+                    const response = await fetch("/run-python", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            code: command,
+                            input_values: []
+                        })
+                    });
+
+                    const result = await response.json();
+                    const outputElement = document.createElement("div");
+                    outputElement.className = result.error
+                        ? "console-error"
+                        : "console-output";
+                    outputElement.textContent = result.output;
+                    consoleOutput.appendChild(outputElement);
+                } catch (error) {
+                    console.error("Error:", error);
+                    const errorElement = document.createElement("div");
+                    errorElement.className = "console-error";
+                    errorElement.textContent = "Đã xảy ra lỗi: " + error.message;
+                    consoleOutput.appendChild(errorElement);
+                }
+
+                consoleOutput.scrollTop = consoleOutput.scrollHeight;
+                saveConsoleState();
+            } else if (event.key === "ArrowUp") {
+                event.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    consoleInput.value = consoleHistory[historyIndex];
+                }
+            } else if (event.key === "ArrowDown") {
+                event.preventDefault();
+                if (historyIndex < consoleHistory.length - 1) {
+                    historyIndex++;
+                    consoleInput.value = consoleHistory[historyIndex];
+                } else {
+                    historyIndex = consoleHistory.length;
+                    consoleInput.value = "";
+                }
+            }
         });
 
         document.addEventListener("keydown", function (event) {
@@ -898,6 +1287,8 @@ for i in range(10):
 
         resultArea.style.maxHeight = "40px";
         resultContent.style.display = "none";
+
+        window.addEventListener("beforeunload", saveConsoleState);
     </script>
 </body>
 
