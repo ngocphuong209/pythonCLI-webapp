@@ -114,7 +114,7 @@ def run_python_code():
         with redirect_stdout(output_buffer), redirect_stderr(error_buffer):
             try:
 
-                def custom_print(*args, sep=" ", end=" " **kwargs):
+                def custom_print(*args, sep=" ", end=" ", **kwargs):
                     print(*args, sep=sep, end=end, file=output_buffer)
 
                 # tạo môi trường thực thi với các thư viện được phép
