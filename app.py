@@ -46,7 +46,8 @@ ALLOWED_MODULES = {
     "decimal": decimal,
     "fractions": fractions,
     "operator": operator,
-    "time": time,
+ 
+    
 }
 
 class CustomStringIO(StringIO):
