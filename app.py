@@ -114,15 +114,15 @@ def run_python_code():
         with redirect_stdout(output_buffer), redirect_stderr(error_buffer):
             try:
 
-                def custom_print(*args, sep=" ", end="\n", **kwargs):
+                def custom_print(*args, sep=" ", **kwargs):
                     print(*args, sep=sep, end=end, file=output_buffer)
 
-                # Tạo môi trường thực thi với các thư viện được phép
+                # tạo môi trường thực thi với các thư viện được phép
                 exec_globals = {
                     "__builtins__": builtins,
                     "print": custom_print,
                     "input": custom_input,
-                    **ALLOWED_MODULES,  # Thêm các thư viện được phép vào môi trường thực thi
+                    **ALLOWED_MODULES,  # thêm các thư viện được phép vào môi trường thực thi
                 }
 
                 exec(code, exec_globals)
