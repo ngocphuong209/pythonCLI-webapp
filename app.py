@@ -1,6 +1,6 @@
-[V0_FILE]python:file="app.py" isEdit="true" isQuickEdit="true" isMerged="true"
 from flask import Flask, request, jsonify, send_file, render_template
 from io import StringIO
+from contextlib import redirect_stdout, redirect_stderr
 import threading
 import ast
 import uuid
@@ -26,10 +26,10 @@ import operator
 app = Flask(__name__)
 app.secret_key = "2Mr4wbDS37QDLvDUQEsWbUTx"
 
-# Execution timeout limit (seconds)
+# Giới hạn thời gian thực thi code (giây)
 EXECUTION_TIMEOUT = 5
 
-# List of allowed built-in modules
+# Danh sách các thư viện tích hợp sẵn được phép import
 ALLOWED_MODULES = {
     "math": math,
     "random": random,
@@ -47,6 +47,15 @@ ALLOWED_MODULES = {
     "fractions": fractions,
     "operator": operator,
 }
+
+class CustomStringIO(StringIO):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.last_write_newline = True
+
+    def write(self, s):
+        self.last_write_newline = s.endswith('\n')
+        return super().write(s)
 
 def is_safe_code(code):
     try:
@@ -96,13 +105,26 @@ def run_python_code():
         except StopIteration:
             raise EOFError("No more input available")
 
-    output_buffer = StringIO()
+    output_buffer = CustomStringIO()
     error_buffer = StringIO()
 
     def custom_print(*args, sep=" ", end="\n", flush=False, **kwargs):
+        if not args:
+            if end and not output_buffer.last_write_newline:
+                output_buffer.write(end)
+            return
+
         string_args = map(str, args)
-        output_string = sep.join(string_args) + end
+        output_string = sep.join(string_args)
+        
+        if not end and not output_buffer.last_write_newline:
+            output_string = " " + output_string
+
         output_buffer.write(output_string)
+        
+        if end:
+            output_buffer.write(end)
+        
         if flush:
             output_buffer.flush()
 
@@ -175,3 +197,4 @@ def page_not_found(error):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
