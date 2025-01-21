@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
     <!-- Primary Meta Tags -->
-    <title>Python Code Playground - Interactive Python CLI Web Application | Learn, Code, Share</title>
-    <meta name="title" content="Python Code Playground - Interactive Python CLI Web Application | Learn, Code, Share">
+    <title>Python Code Playground - Interactive Python CLI Web
+        Application</title>
+    <meta name="title" content="Python Code Playground - Interactive Python CLI Web Application">
     <meta name="description"
-        content="Experience the power of Python programming directly in your browser with our interactive Python CLI playground. Write, run, and share Python code effortlessly. Perfect for beginners and experts alike.">
+        content="Experience the power of Python programming directly in your browser with our interactive Python CLI playground. Write, run, and share Python code effortlessly.">
     <meta name="keywords"
-        content="Python, CLI, web application, code playground, programming, interactive coding, Python learning, code editor, Python CLI webapp, python cli, webapp, python cli webapp, online Python interpreter, Python tutorials, coding practice">
-    <meta name="author" content="Python CLI Web App Team">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+        content="Python, CLI, web application, code playground, programming, interactive coding, Python learning, code editor">
+    <meta name="author" content="Python CLI Web App">
+    <meta name="robots" content="index, follow">
     <meta name="language" content="English">
     <meta name="revisit-after" content="7 days">
     <meta name="theme-color" content="#667eea">
@@ -28,46 +29,20 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://python-cli-webapp.vercel.app/">
-    <meta property="og:title"
-        content="Python Code Playground - Interactive Python CLI Web Application | Learn, Code, Share">
+    <meta property="og:title" content="Python Code Playground - Interactive Python CLI Web Application">
     <meta property="og:description"
-        content="Experience the power of Python programming directly in your browser. Write, run, and share Python code effortlessly. Perfect for beginners and experts alike. Start coding now!">
+        content="Experience the power of Python programming directly in your browser with our interactive Python CLI playground. Write, run, and share Python code effortlessly.">
     <meta property="og:image" content="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="Python CLI Web App">
     <meta property="og:locale" content="en_US">
 
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://python-cli-webapp.vercel.app/">
-    <meta name="twitter:title"
-        content="Python Code Playground - Interactive Python CLI Web Application | Learn, Code, Share">
-    <meta name="twitter:description"
-        content="Experience the power of Python programming directly in your browser. Write, run, and share Python code effortlessly. Perfect for beginners and experts alike. Start coding now!">
-    <meta name="twitter:image" content="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png">
-    <meta name="twitter:creator" content="@PythonCLIWebApp">
-
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Python Code Playground",
-      "url": "https://python-cli-webapp.vercel.app/",
-      "description": "Interactive Python CLI web application for writing, running, and sharing Python code directly in your browser.",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Any",
-      "offers": {
-        "@type": "Offer",
-        "price": "0"
-      },
-      "author": {
-        "@type": "Organization",
-        "name": "Python CLI Web App Team"
-      }
-    }
-    </script>
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://python-cli-webapp.vercel.app/">
+    <meta property="twitter:title" content="Python Code Playground - Interactive Python CLI Web Application">
+    <meta property="twitter:description"
+        content="Experience the power of Python programming directly in your browser with our interactive Python CLI playground. Write, run, and share Python code effortlessly.">
+    <meta property="twitter:image" content="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png">
 
     <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -319,6 +294,15 @@
             background-clip: text;
             color: transparent;
         }
+
+        .highlight {
+            color: yellow;
+            /* Hoặc bất kỳ màu nào bạn muốn */
+            font-weight: bold;
+            /* Làm đậm chữ */
+            background-color: rgba(255, 255, 0, 0.2);
+            /* Tô nền nhẹ */
+        }
     </style>
 </head>
 
@@ -461,8 +445,8 @@
                             </div>
                             <div class="text-green-400 font-mono text-sm">
                                 <div class="mb-2">>>>
-                                    print("Hello, World!")</div>
-                                <div>Hello, World!</div>
+                                    print("Hello World!, my name <span class='highlight'>tanbaycu</span>")</div>
+                                <div>Hello World!, my name <span class='highlight'>tanbaycu</span></div>
                             </div>
                         </div>
                     </div>
@@ -473,8 +457,12 @@
         <!-- Enhanced Carousel Section -->
         <div
             class="w-full max-w-4xl bg-white bg-opacity-95 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden mt-12 p-6">
-            <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 text-center">Explore
-                Python Features</h2>
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 text-center">
+                <span
+                    class="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text hover:from-purple-500 hover:to-blue-500 transition-all duration-500 drop-shadow-lg hover:drop-shadow-xl">
+                    Explore
+                </span>
+            </h2>
             <div class="swiper-container" x-data="{ swiper: null }" x-init="
                 swiper = new Swiper($el, {
                     effect: 'coverflow',
@@ -509,21 +497,22 @@
                             alt="Advanced Python Techniques">
                         <div
                             class="slide-content absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
-                            <h3 class="text-xl font-bold mb-2">Advanced
-                                Python Techniques</h3>
-                            <p class="text-sm">Enhance your coding skills
-                                with advanced Python concepts.</p>
+                            <h3 class="text-xl font-bold mb-2">Advanced Python Techniques</h3>
+                            <p class="text-sm">Enhance your
+                                <strong class="text-purple-400 font-bold">coding skills</strong>
+                                with advanced Python concepts.
+                            </p>
                         </div>
                     </div>
                     <div class="swiper-slide">
-                        <img src="https://i.postimg.cc/DyRXK5Fs/410263-BE-F1-AA-46-C1-9-C9-E-CC4781-A95512.png"
+                        <img src="https://i.postimg.cc/fRVZRfPm/DD184752-C628-45-B9-B3-F4-964-BE8-C252-F7.png"
                             alt="Python Project Showcase">
                         <div
                             class="slide-content absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
-                            <h3 class="text-xl font-bold mb-2">Project
-                                Showcase</h3>
+                            <h3 class="text-xl font-bold mb-2">Project Showcase</h3>
                             <p class="text-sm">Explore amazing projects
-                                built with Python in our CLI.</p>
+                                built with <strong class="text-blue-400 font-bold">Python</strong> in our CLI.
+                            </p>
                         </div>
                     </div>
                     <div class="swiper-slide">
@@ -531,30 +520,38 @@
                             alt="Python Community">
                         <div
                             class="slide-content absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
-                            <h3 class="text-xl font-bold mb-2">Join the
-                                Community</h3>
-                            <p class="text-sm">Connect with me for work or
-                                share experience.</p>
+                            <h3 class="text-xl font-bold mb-2">Join the Community</h3>
+                            <p class="text-sm">
+                                <strong>
+                                    <a href="https://linktr.ee/tanbaycu" target="_blank"
+                                        class="text-lg font-bold text-yellow-400 hover:text-yellow-300 transition duration-300 underline">
+                                        Connect with me
+                                    </a>
+                                </strong>
+                                for work or share experience.
+                            </p>
                         </div>
                     </div>
                     <div class="swiper-slide">
-                        <img src="https://i.postimg.cc/Xqmp47M3/images.png" alt="Python for Data Science">
+                        <img src="https://i.postimg.cc/dt4t11VP/image.png" alt="Python for Data Science">
                         <div
                             class="slide-content absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
-                            <h3 class="text-xl font-bold mb-2">Frontend
-                                Development</h3>
-                            <p class="text-sm">Working with HTML and
-                                TailwndCSS for best UI/UX templates.</p>
+                            <h3 class="text-xl font-bold mb-2">Frontend Development</h3>
+                            <p class="text-sm">Working with
+                                <strong class="text-yellow-400 font-bold">HTML</strong> and
+                                <strong class="text-blue-400 font-bold">TailwindCSS</strong>
+                                for best UI/UX templates.
+                            </p>
                         </div>
                     </div>
                     <div class="swiper-slide">
-                        <img src="https://i.postimg.cc/RFPWpLXW/flask-python.png" alt="Web Development with Python">
+                        <img src="https://i.postimg.cc/HxyV8CP0/image.png" alt="Web Development with Python">
                         <div
                             class="slide-content absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
-                            <h3 class="text-xl font-bold mb-2">Web
-                                Development</h3>
+                            <h3 class="text-xl font-bold mb-2">Web Development</h3>
                             <p class="text-sm">Build powerful web
-                                applications using Python frameworks.</p>
+                                applications using <strong class="text-green-400 font-bold">Flask</strong>.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -566,8 +563,12 @@
 
         <!-- Features Section -->
         <div id="features" class="w-full max-w-4xl bg-gray-50 p-6 sm:p-8 lg:p-10 mt-12 rounded-2xl shadow-xl">
-            <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 text-center">Key
-                Features</h2>
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 text-center">
+                <span
+                    class="bg-gradient-to-r from-green-500 to-teal-500 text-transparent bg-clip-text hover:from-teal-500 hover:to-green-500 transition-all duration-500 drop-shadow-lg hover:drop-shadow-xl hover:scale-105">
+                    Key Features
+                </span>
+            </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Feature Card 1 -->
                 <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -579,8 +580,12 @@
                     </div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-2">Interactive
                         Coding</h3>
-                    <p class="text-gray-600">Write and execute Python code
-                        in real-time with instant feedback.</p>
+                    <p class="text-gray-600 text-center">
+                        <span
+                            class="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text font-bold hover:from-purple-500 hover:to-blue-500 transition-all duration-500 drop-shadow-lg hover:drop-shadow-xl animate-pulse">
+                            Write and execute Python code in real-time with instant feedback.
+                        </span>
+                    </p>
                 </div>
 
                 <!-- Feature Card 2 -->
@@ -593,8 +598,12 @@
                     </div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-2">Fast
                         Execution</h3>
-                    <p class="text-gray-600">Lightning-fast code execution
-                        with optimized performance.</p>
+                    <p class="text-gray-600 text-center">
+                        <span
+                            class="bg-gradient-to-r from-orange-500 to-red-500 text-transparent bg-clip-text font-bold hover:from-red-500 hover:to-orange-500 transition-all duration-500 drop-shadow-lg hover:drop-shadow-xl animate-bounce">
+                            Lightning-fast code execution with optimized performance.
+                        </span>
+                    </p>
                 </div>
 
                 <!-- Feature Card 3 -->
@@ -607,8 +616,12 @@
                     </div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-2">Code
                         Sharing</h3>
-                    <p class="text-gray-600">Share your code snippets easily
-                        with other developers.</p>
+                    <p class="text-gray-600 text-center">
+                        <span
+                            class="bg-gradient-to-r from-teal-500 to-cyan-500 text-transparent bg-clip-text font-bold hover:from-cyan-500 hover:to-teal-500 transition-all duration-500 drop-shadow-lg hover:drop-shadow-xl">
+                            Share your code snippets easily with other developers.
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -636,104 +649,132 @@
             </div>
         </div>
 
-        <!-- User Guide Section -->
-        <div id="user-guide" class="w-full max-w-4xl bg-gray-100 p-8 rounded-xl shadow-lg mt-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">How to
-                Use</h2>
+        <div id="user-guide" class="w-full max-w-4xl bg-white p-8 rounded-xl shadow-lg mt-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Hướng Dẫn Sử Dụng</h2>
 
-            <div class="space-y-8">
-                <!-- Code Editor Section -->
-                <div>
-                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">1.
-                        Writing Code</h3>
-                    <p class="text-gray-700 mb-4">Use the code editor to
-                        write your Python code. The editor supports
-                        syntax highlighting and auto-completion to make
-                        coding easier.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Viết Mã Section -->
+                <div class="bg-purple-50 p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-4 flex items-center">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                        Viết Mã
+                    </h3>
+                    <p class="text-gray-700 mb-4">Sử dụng trình soạn thảo mã để viết mã Python của bạn. Trình soạn thảo
+                        hỗ trợ tô sáng cú pháp và tự động hoàn thành để giúp việc lập trình dễ dàng hơn.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-2">
-                        <li>Type your Python code in the main editor
-                            area</li>
-                        <li>Use <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl +
-                                Space</kbd> for auto-completion
-                            suggestions</li>
-                        <li>Use <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl +
-                                /</kbd> or <kbd class="bg-gray-200 px-2 py-1 rounded">Cmd +
-                                /</kbd> to comment/uncomment lines</li>
+                        <li>Nhập mã Python của bạn vào khu vực chính của trình soạn thảo</li>
+                        <li>Sử dụng <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl + Space</kbd> để gợi ý tự động hoàn
+                            thành</li>
+                        <li>Sử dụng <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl + /</kbd> hoặc <kbd
+                                class="bg-gray-200 px-2 py-1 rounded">Cmd + /</kbd> để comment/uncomment dòng</li>
                     </ul>
                 </div>
 
-                <!-- Running Code Section -->
-                <div>
-                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">2.
-                        Running Your Code</h3>
-                    <p class="text-gray-700 mb-4">Execute your Python code
-                        and see the results instantly.</p>
+                <!-- Chạy Mã Section -->
+                <div class="bg-blue-50 p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-semibold text-blue-700 mb-4 flex items-center">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Chạy Mã Của Bạn
+                    </h3>
+                    <p class="text-gray-700 mb-4">Thực thi mã Python của bạn và xem kết quả ngay lập tức.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-2">
-                        <li>Click the "Run" button or use <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl +
-                                Enter</kbd>
-                            to execute your code</li>
-                        <li>The output will appear in the "Results" section
-                            below the editor</li>
-                        <li>If your code has errors, they will be displayed
-                            in red in the output area</li>
+                        <li>Nhấp vào nút "Chạy" hoặc sử dụng <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl +
+                                Enter</kbd> để thực thi mã của bạn</li>
+                        <li>Kết quả sẽ xuất hiện trong phần "Kết quả" bên dưới trình soạn thảo</li>
+                        <li>Nếu mã của bạn có lỗi, chúng sẽ được hiển thị bằng màu đỏ trong khu vực kết quả</li>
                     </ul>
                 </div>
 
-                <!-- Advanced Options Section -->
-                <div>
-                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">3.
-                        Using Advanced Options</h3>
-                    <p class="text-gray-700 mb-4">Customize your coding
-                        experience with advanced features.</p>
+                <!-- Tùy Chọn Nâng Cao Section -->
+                <div class="bg-green-50 p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-4 flex items-center">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        Tùy Chọn Nâng Cao
+                    </h3>
+                    <p class="text-gray-700 mb-4">Tùy chỉnh trải nghiệm lập trình của bạn với các tính năng nâng cao.
+                    </p>
                     <ul class="list-disc list-inside text-gray-600 space-y-2">
-                        <li>Click the "Settings" button to access advanced
-                            options</li>
-                        <li>Enable "Require keyboard input" if your code
-                            needs user input</li>
-                        <li>Use the input text area to provide multiple
-                            input values, one per line</li>
-                        <li>Check the list of pre-installed libraries you
-                            can use in your code</li>
+                        <li>Nhấp vào nút "Cài đặt" để truy cập các tùy chọn nâng cao</li>
+                        <li>Bật "Yêu cầu nhập từ bàn phím" nếu mã của bạn cần đầu vào từ người dùng</li>
+                        <li>Sử dụng khu vực nhập văn bản để cung cấp nhiều giá trị đầu vào, mỗi giá trị trên một dòng
+                        </li>
+                        <li>Kiểm tra danh sách các thư viện đã cài đặt sẵn mà bạn có thể sử dụng trong mã của mình</li>
                     </ul>
                 </div>
 
-                <!-- Additional Features Section -->
-                <div>
-                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">4.
-                        Additional Features</h3>
-                    <p class="text-gray-700 mb-4">Explore other helpful
-                        features of the playground.</p>
+                <!-- Tính Năng Bổ Sung Section -->
+                <div class="bg-yellow-50 p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-semibold text-yellow-700 mb-4 flex items-center">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z">
+                            </path>
+                        </svg>
+                        Tính Năng Bổ Sung
+                    </h3>
+                    <p class="text-gray-700 mb-4">Khám phá các tính năng hữu ích khác của playground.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-2">
-                        <li>Use the "Clear" button to reset the editor and
-                            output</li>
-                        <li>Click "Save" to download your code as a .py
-                            file</li>
-                        <li>Share your code with others using the "Share"
-                            button</li>
-                        <li>Toggle between light and dark themes with the
-                            theme button</li>
-                        <li>Enter fullscreen mode for a distraction-free
-                            coding experience</li>
+                        <li>Sử dụng nút "Xóa" để đặt lại trình soạn thảo và kết quả</li>
+                        <li>Nhấp "Lưu" để tải xuống mã của bạn dưới dạng tệp .py</li>
+                        <li>Chia sẻ mã của bạn với người khác bằng nút "Chia sẻ"</li>
+                        <li>Chuyển đổi giữa chủ đề sáng và tối bằng nút chủ đề</li>
+                        <li>Vào chế độ toàn màn hình để có trải nghiệm lập trình không bị phân tâm</li>
                     </ul>
                 </div>
+            </div>
 
-                <!-- Tips Section -->
-                <div>
-                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">5.
-                        Tips for Effective Use</h3>
-                    <ul class="list-disc list-inside text-gray-600 space-y-2">
-                        <li>Start with small code snippets and gradually
-                            build more complex programs</li>
-                        <li>Use comments to explain your code and make it
-                            easier to understand</li>
-                        <li>Experiment with different Python libraries to
-                            expand your coding capabilities</li>
-                        <li>Save your code regularly to avoid losing your
-                            work</li>
-                        <li>Use the share feature to get help or collaborate
-                            with others</li>
-                    </ul>
-                </div>
+            <!-- Mẹo Sử Dụng Section -->
+            <div class="mt-8 bg-gray-50 p-6 rounded-lg shadow-md">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                        </path>
+                    </svg>
+                    Mẹo Sử Dụng Hiệu Quả
+                </h3>
+                <p class="text-gray-700 mb-4">Các mẹo để tận dụng tối đa Python CLI.</p>
+                <ul class="list-disc list-inside text-gray-600 space-y-2">
+                    <li>Bắt đầu với các đoạn mã nhỏ và dần dần xây dựng các chương trình phức tạp hơn</li>
+                    <li>Sử dụng comments để giải thích mã của bạn và làm cho nó dễ hiểu hơn</li>
+                    <li>Thử nghiệm với các thư viện Python khác nhau để mở rộng khả năng lập trình của bạn</li>
+                    <li>Lưu mã của bạn thường xuyên để tránh mất công việc</li>
+                    <li>Sử dụng tính năng chia sẻ để nhận trợ giúp hoặc cộng tác với người khác</li>
+                </ul>
+            </div>
+
+            <!-- Bắt Đầu Ngay Button -->
+            <div class="mt-8 text-center">
+                <a href="/clipython"
+                    class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 md:py-4 md:text-lg md:px-10 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+                    Bắt Đầu Ngay
+                    <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </a>
             </div>
         </div>
 

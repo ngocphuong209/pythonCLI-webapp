@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en" class="h-full scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
 
     <!-- Primary Meta Tags -->
-    <title>Python Code Playground - Interactive Python CLI Web
-        Application</title>
-    <meta name="title" content="Python Code Playground - Interactive Python CLI Web Application">
+    <title>Python Code Playground - Interactive Python CLI Web Application | Learn, Code, Share</title>
+    <meta name="title" content="Python Code Playground - Interactive Python CLI Web Application | Learn, Code, Share">
     <meta name="description"
-        content="Experience the power of Python programming directly in your browser with our interactive Python CLI playground. Write, run, and share Python code effortlessly.">
+        content="Experience the power of Python programming directly in your browser with our interactive Python CLI playground. Write, run, and share Python code effortlessly. Perfect for beginners and experts alike.">
     <meta name="keywords"
-        content="Python, CLI, web application, code playground, programming, interactive coding, Python learning, code editor">
-    <meta name="author" content="Python CLI Web App">
-    <meta name="robots" content="index, follow">
+        content="Python, CLI, web application, code playground, programming, interactive coding, Python learning, code editor, Python CLI webapp, python cli, webapp, python cli webapp, online Python interpreter, Python tutorials, coding practice">
+    <meta name="author" content="Python CLI Web App Team">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="English">
     <meta name="revisit-after" content="7 days">
     <meta name="theme-color" content="#667eea">
@@ -29,31 +29,55 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://python-cli-webapp.vercel.app/">
-    <meta property="og:title" content="Python Code Playground - Interactive Python CLI Web Application">
+    <meta property="og:title"
+        content="Python Code Playground - Interactive Python CLI Web Application | Learn, Code, Share">
     <meta property="og:description"
-        content="Experience the power of Python programming directly in your browser with our interactive Python CLI playground. Write, run, and share Python code effortlessly.">
+        content="Experience the power of Python programming directly in your browser. Write, run, and share Python code effortlessly. Perfect for beginners and experts alike. Start coding now!">
     <meta property="og:image" content="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="Python CLI Web App">
     <meta property="og:locale" content="en_US">
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://python-cli-webapp.vercel.app/">
-    <meta property="twitter:title" content="Python Code Playground - Interactive Python CLI Web Application">
-    <meta property="twitter:description"
-        content="Experience the power of Python programming directly in your browser with our interactive Python CLI playground. Write, run, and share Python code effortlessly.">
-    <meta property="twitter:image" content="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://python-cli-webapp.vercel.app/">
+    <meta name="twitter:title"
+        content="Python Code Playground - Interactive Python CLI Web Application | Learn, Code, Share">
+    <meta name="twitter:description"
+        content="Experience the power of Python programming directly in your browser. Write, run, and share Python code effortlessly. Perfect for beginners and experts alike. Start coding now!">
+    <meta name="twitter:image" content="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png">
+    <meta name="twitter:creator" content="@PythonCLIWebApp">
 
-    <!-- Add viewport-fit=cover for better display on notched devices -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Python Code Playground",
+      "url": "https://python-cli-webapp.vercel.app/",
+      "description": "Interactive Python CLI web application for writing, running, and sharing Python code directly in your browser.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Python CLI Web App Team"
+      }
+    }
+    </script>
 
-    <!-- Add preconnect for performance -->
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -69,27 +93,340 @@
             }
         }
     </script>
+
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <!-- Swiper.js -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+
+    <style>
+        /* Custom scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Responsive font sizes */
+        @media (max-width: 640px) {
+            html {
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: 641px) and (max-width: 1024px) {
+            html {
+                font-size: 16px;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            html {
+                font-size: 18px;
+            }
+        }
+
+        /* New styles for enhanced carousel */
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+            padding-bottom: 50px;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 300px;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .swiper-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
+            transform: translateY(-100%);
+            animation: shine 5s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            20% {
+                transform: translateY(100%);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .swiper-slide-shadow-left,
+        .swiper-slide-shadow-right {
+            border-radius: 8px;
+        }
+
+        .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 1;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #fff;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #fff;
+            background: rgba(0, 0, 0, 0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .swiper-button-next:after,
+        .swiper-button-prev:after {
+            font-size: 18px;
+        }
+
+        .swiper-slide-active .slide-content {
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <style>
+        @keyframes colorChange {
+            0% {
+                color: #4B0082;
+            }
+
+            10% {
+                color: #0000FF;
+            }
+
+            20% {
+                color: #ebaf61;
+            }
+
+            30% {
+                color: #f66ad3;
+            }
+
+            40% {
+                color: #FF4500;
+            }
+
+            50% {
+                color: #00FFFF;
+            }
+
+            60% {
+                color: #FFD700;
+            }
+
+            70% {
+                color: #00FF00;
+            }
+
+            75% {
+                color: #fecef2;
+            }
+
+            80% {
+                color: #3f8ad4;
+            }
+
+            90% {
+                color: #035108;
+            }
+
+            100% {
+                color: #ef0dcd;
+            }
+        }
+
+        @keyframes lightBeam {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        .animated-text {
+            position: relative;
+            color: #4B0082;
+            animation: colorChange 8s infinite;
+        }
+
+        .animated-text::before {
+            content: 'Python CLI';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            background-size: 200% 100%;
+            background-repeat: no-repeat;
+            animation: lightBeam 3s infinite linear;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
 </head>
 
-<body class="h-full bg-gradient-to-br from-purple-600 to-blue-500 text-gray-800 antialiased">
-    <!-- Container with improved padding for different devices -->
+<body class="h-full bg-gradient-to-br from-purple-600 to-blue-500 text-gray-800 antialiased"
+    x-data="{ mobileMenuOpen: false }">
+    <!-- Navigation -->
+    <nav class="bg-white bg-opacity-95 fixed w-full z-10 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="#" class="flex items-center">
+                <img src="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png" class="h-8 mr-3"
+                    alt="Python CLI Logo">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap">Python
+                    CLI</span>
+            </a>
+            <button @click="mobileMenuOpen = !mobileMenuOpen" type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
+            </button>
+            <div class="hidden w-full md:block md:w-auto" :class="{'block': mobileMenuOpen, 'hidden': !mobileMenuOpen}"
+                id="navbar-default">
+                <ul
+                    class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent">
+                    <li>
+                        <a href="#" class="block py-2 pl-3 pr-4 text-purple-700 rounded md:bg-transparent md:p-0"
+                            aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="#features"
+                            class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-purple-700 md:p-0">Features</a>
+                    </li>
+                    <li>
+                        <a href="#user-guide"
+                            class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-purple-700 md:p-0">User
+                            Guide</a>
+                    </li>
+                    <li>
+                        <a href="/clipython"
+                            class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-purple-700 md:p-0">Launch
+                            CLI</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <nav class="flex px-5 py-3 text-gray-100 bg-purple-600 bg-opacity-75 mt-16" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a href="#" class="inline-flex items-center text-sm font-medium text-gray-100 hover:text-white">
+                    <svg class="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                    </svg>
+                    Home
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg class="w-3 h-3 text-gray-300 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 9 4-4-4-4" />
+                    </svg>
+                    <a href="#features"
+                        class="ml-1 text-sm font-medium text-gray-100 hover:text-white md:ml-2">Features</a>
+                </div>
+            </li>
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <svg class="w-3 h-3 text-gray-300 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 9 4-4-4-4" />
+                    </svg>
+                    <span class="ml-1 text-sm font-medium text-gray-300 md:ml-2">User
+                        Guide</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
+
+    <!-- Main content -->
     <div class="min-h-screen flex flex-col justify-center items-center px-4 py-8 sm:px-6 lg:px-8">
-        <!-- Main content container with max-width constraints -->
+        <!-- Hero Section -->
         <div class="w-full max-w-4xl bg-white bg-opacity-95 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden">
-            <!-- Hero Section with improved responsive layout -->
             <div class="grid lg:grid-cols-2 gap-0">
                 <!-- Left Content -->
                 <div class="p-6 sm:p-8 lg:p-10 flex flex-col justify-center">
                     <div class="flex items-center mb-6">
                         <img src="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png" alt="Python CLI Logo"
                             class="w-12 h-12 object-contain mr-3" loading="eager">
-                        <h2 class="text-xl font-semibold">Python CLI</h2>
+                        <h2 class="text-xl font-semibold animated-text">Python
+                            CLI</h2>
                     </div>
                     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4 leading-tight">
                         Welcome to Python Code Playground
                     </h1>
                     <p class="text-gray-600 text-base sm:text-lg mb-6 leading-relaxed">
-                        Experience the power of Python right in your browser! Write, run, and share Python code
+                        Experience the power of Python right in your
+                        browser! Write, run, and share Python code
                         effortlessly.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
@@ -124,57 +461,162 @@
                                 </div>
                             </div>
                             <div class="text-green-400 font-mono text-sm">
-                                <div class="mb-2">>>> print("Hello, World!")</div>
-                                <div>Hello, World!</div>
+                                <div class="mb-2">>>>
+                                    print("Hello World!, my name tanbaycu")</div>
+                                <div>Hello World!, my name tanbaycu</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Features Section with improved grid layout -->
-            <div id="features" class="bg-gray-50 p-6 sm:p-8 lg:p-10">
-                <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 text-center">Key Features</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Feature Card 1 -->
-                    <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                            <svg class="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                            </svg>
+        <!-- Enhanced Carousel Section -->
+        <div
+            class="w-full max-w-4xl bg-white bg-opacity-95 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden mt-12 p-6">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 text-center">Explore
+                Python Features</h2>
+            <div class="swiper-container" x-data="{ swiper: null }" x-init="
+                swiper = new Swiper($el, {
+                    effect: 'coverflow',
+                    grabCursor: true,
+                    centeredSlides: true,
+                    slidesPerView: 'auto',
+                    coverflowEffect: {
+                        rotate: 50,
+                        stretch: 0,
+                        depth: 100,
+                        modifier: 1,
+                        slideShadows: true,
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    },
+                    loop: true,
+                })
+            ">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="https://i.postimg.cc/gJGhTJpT/22566908-B76-F-4-C83-B90-F-EE6714-DFC32-E.png"
+                            alt="Advanced Python Techniques">
+                        <div
+                            class="slide-content absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
+                            <h3 class="text-xl font-bold mb-2">Advanced
+                                Python Techniques</h3>
+                            <p class="text-sm">Enhance your coding skills
+                                with advanced Python concepts.</p>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Interactive Coding</h3>
-                        <p class="text-gray-600">Write and execute Python code in real-time with instant feedback.</p>
                     </div>
-
-                    <!-- Feature Card 2 -->
-                    <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                            <svg class="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
-                            </svg>
+                    <div class="swiper-slide">
+                        <img src="https://i.postimg.cc/DyRXK5Fs/410263-BE-F1-AA-46-C1-9-C9-E-CC4781-A95512.png"
+                            alt="Python Project Showcase">
+                        <div
+                            class="slide-content absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
+                            <h3 class="text-xl font-bold mb-2">Project
+                                Showcase</h3>
+                            <p class="text-sm">Explore amazing projects
+                                built with Python in our CLI.</p>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Fast Execution</h3>
-                        <p class="text-gray-600">Lightning-fast code execution with optimized performance.</p>
                     </div>
-
-                    <!-- Feature Card 3 -->
-                    <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                            <svg class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                            </svg>
+                    <div class="swiper-slide">
+                        <img src="https://i.postimg.cc/SKf2Ch97/08-E213-B8-84-EA-492-F-9-F7-C-5269468-AE1-C7.png"
+                            alt="Python Community">
+                        <div
+                            class="slide-content absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
+                            <h3 class="text-xl font-bold mb-2">Join the
+                                Community</h3>
+                            <p class="text-sm">Connect with me for work or
+                                share experience.</p>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Code Sharing</h3>
-                        <p class="text-gray-600">Share your code snippets easily with other developers.</p>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://i.postimg.cc/Xqmp47M3/images.png" alt="Python for Data Science">
+                        <div
+                            class="slide-content absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
+                            <h3 class="text-xl font-bold mb-2">Frontend
+                                Development</h3>
+                            <p class="text-sm">Working with HTML and
+                                TailwndCSS for best UI/UX templates.</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://i.postimg.cc/RFPWpLXW/flask-python.png" alt="Web Development with Python">
+                        <div
+                            class="slide-content absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
+                            <h3 class="text-xl font-bold mb-2">Web
+                                Development</h3>
+                            <p class="text-sm">Build powerful web
+                                applications using Python frameworks.</p>
+                        </div>
                     </div>
                 </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
+        </div>
 
-            <!-- Stats Section -->
+        <!-- Features Section -->
+        <div id="features" class="w-full max-w-4xl bg-gray-50 p-6 sm:p-8 lg:p-10 mt-12 rounded-2xl shadow-xl">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 text-center">Key
+                Features</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Feature Card 1 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Interactive
+                        Coding</h3>
+                    <p class="text-gray-600">Write and execute Python code
+                        in real-time with instant feedback.</p>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Fast
+                        Execution</h3>
+                    <p class="text-gray-600">Lightning-fast code execution
+                        with optimized performance.</p>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Code
+                        Sharing</h3>
+                    <p class="text-gray-600">Share your code snippets easily
+                        with other developers.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div
+            class="w-full max-w-4xl bg-white bg-opacity-95 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden mt-12">
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 sm:p-8 border-t border-gray-200">
                 <div class="text-center">
                     <div class="text-2xl sm:text-3xl font-bold text-purple-600">100%</div>
@@ -194,70 +636,103 @@
                 </div>
             </div>
         </div>
-        <div id="user-guide" class="bg-gray-100 p-8 rounded-xl shadow-lg mt-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">How to Use </h2>
+
+        <!-- User Guide Section -->
+        <div id="user-guide" class="w-full max-w-4xl bg-gray-100 p-8 rounded-xl shadow-lg mt-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">How to
+                Use</h2>
 
             <div class="space-y-8">
                 <!-- Code Editor Section -->
                 <div>
-                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">1. Writing Code</h3>
-                    <p class="text-gray-700 mb-4">Use the code editor to write your Python code. The editor supports
-                        syntax highlighting and auto-completion to make coding easier.</p>
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">1.
+                        Writing Code</h3>
+                    <p class="text-gray-700 mb-4">Use the code editor to
+                        write your Python code. The editor supports
+                        syntax highlighting and auto-completion to make
+                        coding easier.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-2">
-                        <li>Type your Python code in the main editor area</li>
-                        <li>Use <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl + Space</kbd> for auto-completion
+                        <li>Type your Python code in the main editor
+                            area</li>
+                        <li>Use <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl +
+                                Space</kbd> for auto-completion
                             suggestions</li>
-                        <li>Use <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl + /</kbd> or <kbd
-                                class="bg-gray-200 px-2 py-1 rounded">Cmd + /</kbd> to comment/uncomment lines</li>
+                        <li>Use <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl +
+                                /</kbd> or <kbd class="bg-gray-200 px-2 py-1 rounded">Cmd +
+                                /</kbd> to comment/uncomment lines</li>
                     </ul>
                 </div>
 
                 <!-- Running Code Section -->
                 <div>
-                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">2. Running Your Code</h3>
-                    <p class="text-gray-700 mb-4">Execute your Python code and see the results instantly.</p>
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">2.
+                        Running Your Code</h3>
+                    <p class="text-gray-700 mb-4">Execute your Python code
+                        and see the results instantly.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-2">
-                        <li>Click the "Run" button or use <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl + Enter</kbd>
+                        <li>Click the "Run" button or use <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl +
+                                Enter</kbd>
                             to execute your code</li>
-                        <li>The output will appear in the "Results" section below the editor</li>
-                        <li>If your code has errors, they will be displayed in red in the output area</li>
+                        <li>The output will appear in the "Results" section
+                            below the editor</li>
+                        <li>If your code has errors, they will be displayed
+                            in red in the output area</li>
                     </ul>
                 </div>
 
                 <!-- Advanced Options Section -->
                 <div>
-                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">3. Using Advanced Options</h3>
-                    <p class="text-gray-700 mb-4">Customize your coding experience with advanced features.</p>
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">3.
+                        Using Advanced Options</h3>
+                    <p class="text-gray-700 mb-4">Customize your coding
+                        experience with advanced features.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-2">
-                        <li>Click the "Settings" button to access advanced options</li>
-                        <li>Enable "Require keyboard input" if your code needs user input</li>
-                        <li>Use the input text area to provide multiple input values, one per line</li>
-                        <li>Check the list of pre-installed libraries you can use in your code</li>
+                        <li>Click the "Settings" button to access advanced
+                            options</li>
+                        <li>Enable "Require keyboard input" if your code
+                            needs user input</li>
+                        <li>Use the input text area to provide multiple
+                            input values, one per line</li>
+                        <li>Check the list of pre-installed libraries you
+                            can use in your code</li>
                     </ul>
                 </div>
 
                 <!-- Additional Features Section -->
                 <div>
-                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">4. Additional Features</h3>
-                    <p class="text-gray-700 mb-4">Explore other helpful features of the playground.</p>
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">4.
+                        Additional Features</h3>
+                    <p class="text-gray-700 mb-4">Explore other helpful
+                        features of the playground.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-2">
-                        <li>Use the "Clear" button to reset the editor and output</li>
-                        <li>Click "Save" to download your code as a .py file</li>
-                        <li>Share your code with others using the "Share" button</li>
-                        <li>Toggle between light and dark themes with the theme button</li>
-                        <li>Enter fullscreen mode for a distraction-free coding experience</li>
+                        <li>Use the "Clear" button to reset the editor and
+                            output</li>
+                        <li>Click "Save" to download your code as a .py
+                            file</li>
+                        <li>Share your code with others using the "Share"
+                            button</li>
+                        <li>Toggle between light and dark themes with the
+                            theme button</li>
+                        <li>Enter fullscreen mode for a distraction-free
+                            coding experience</li>
                     </ul>
                 </div>
 
                 <!-- Tips Section -->
                 <div>
-                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">5. Tips for Effective Use</h3>
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-4">5.
+                        Tips for Effective Use</h3>
                     <ul class="list-disc list-inside text-gray-600 space-y-2">
-                        <li>Start with small code snippets and gradually build more complex programs</li>
-                        <li>Use comments to explain your code and make it easier to understand</li>
-                        <li>Experiment with different Python libraries to expand your coding capabilities</li>
-                        <li>Save your code regularly to avoid losing your work</li>
-                        <li>Use the share feature to get help or collaborate with others</li>
+                        <li>Start with small code snippets and gradually
+                            build more complex programs</li>
+                        <li>Use comments to explain your code and make it
+                            easier to understand</li>
+                        <li>Experiment with different Python libraries to
+                            expand your coding capabilities</li>
+                        <li>Save your code regularly to avoid losing your
+                            work</li>
+                        <li>Use the share feature to get help or collaborate
+                            with others</li>
                     </ul>
                 </div>
             </div>
@@ -268,6 +743,17 @@
             <p>&copy; 2025 | Powered by <a href="https://linktr.ee/tanbaycu" target="_blank"
                     class="text-teal-400 hover:text-teal-600 font-bold no-underline">tanbaycu</a></p>
         </footer>
+    </div>
+
+    <!-- Skeleton loader -->
+    <div id="skeleton-loader" class="fixed inset-0 bg-white z-50 flex items-center justify-center"
+        x-data="{ loading: true }" x-show="loading" x-init="setTimeout(() => loading = false, 2000)">
+        <div class="animate-pulse flex flex-col items-center">
+            <div class="rounded-full bg-gray-300 h-32 w-32"></div>
+            <div class="mt-4 h-8 bg-gray-300 rounded w-48"></div>
+            <div class="mt-2 h-4 bg-gray-300 rounded w-64"></div>
+            <div class="mt-2 h-4 bg-gray-300 rounded w-56"></div>
+        </div>
     </div>
 
     <!-- Add smooth scroll behavior -->
@@ -283,8 +769,8 @@
     </script>
     <script>
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-      </script>
-      <script defer src="/_vercel/insights/script.js"></script>
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </body>
 
 </html>
