@@ -319,7 +319,7 @@
             /* Điều chỉnh kích thước font */
             line-height: 30px;
             /* Điều chỉnh line-height */
-            color: #12cefe;
+            color: #0cbfec;
         }
 
         .content__container {
@@ -367,7 +367,7 @@
 
         .content__container__list {
             margin-top: 0;
-            padding-left: 70px;
+            padding-left: 100px;
             /* Điều chỉnh padding */
             text-align: left;
             list-style: none;
@@ -432,6 +432,11 @@
                 transform: translate3d(0, -25%, 0);
             }
         }
+
+        #alert-container {
+            max-height: 200px;
+            overflow: hidden;
+        }
     </style>
 </head>
 
@@ -440,20 +445,24 @@
     <!-- Navigation -->
     <nav class="bg-white bg-opacity-95 fixed w-full z-10 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <a href="/" class="flex items-center">
+            <a href="#" class="flex items-center">
                 <img src="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png" class="h-8 mr-3"
                     alt="Python CLI Logo">
-                <div class="container">
+                <div class="containers">
                     <div class="content">
                         <div class="content__container">
                             <p class="content__container__text">
                                 Python
                             </p>
                             <ul class="content__container__list">
-                                <li class="content__container__list__item"> CLI</li>
-                                <li class="content__container__list__item"> Tool</li>
-                                <li class="content__container__list__item"> Script</li>
-                                <li class="content__container__list__item"> Code</li>
+                                <li class="content__container__list__item">
+                                    CLI</li>
+                                <li class="content__container__list__item">
+                                    Tool</li>
+                                <li class="content__container__list__item">
+                                    Script</li>
+                                <li class="content__container__list__item">
+                                    Code</li>
                             </ul>
                         </div>
                     </div>
@@ -555,14 +564,15 @@
                         effortlessly.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
+                        <!-- Nút "Launch Python CLI" -->
                         <a href="/clipython"
                             class="relative inline-block p-px font-semibold leading-6 text-white bg-gray-800 shadow-2xl cursor-pointer rounded-xl shadow-zinc-900 transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 group">
                             <span
                                 class="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400 via-blue-500 to-purple-500 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
                             <span class="relative z-10 block px-6 py-3 rounded-xl bg-gray-950">
                                 <div class="relative z-10 flex items-center space-x-2">
-                                    <span class="transition-all duration-500 group-hover:translate-x-1">Launch Python
-                                        CLI</span>
+                                    <span class="transition-all duration-500 group-hover:translate-x-1">Launch
+                                        Python CLI</span>
                                     <svg class="w-6 h-6 transition-transform duration-500 group-hover:translate-x-1"
                                         data-slot="icon" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -573,6 +583,8 @@
                                 </div>
                             </span>
                         </a>
+
+                        <!-- Nút "Learn More" -->
                         <a href="#user-guide"
                             class="relative inline-block p-px font-semibold leading-6 text-gray-700 bg-gray-100 shadow-2xl cursor-pointer rounded-xl shadow-zinc-900 transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 group">
                             <span
@@ -612,6 +624,11 @@
                                 <div class="mb-2">>>>
                                     print("Hello World!, my name <span class='highlight'>tanbaycu</span>")</div>
                                 <div>Hello World!, my name <span class='highlight'>tanbaycu</span></div>
+                            </div>
+
+                            <!-- Alert Container -->
+                            <div id="alert-container" class="mt-4 space-y-2">
+                                <!-- Alerts will be dynamically inserted here -->
                             </div>
                         </div>
                     </div>
@@ -662,9 +679,11 @@
                             alt="Advanced Python Techniques">
                         <div
                             class="slide-content absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
-                            <h3 class="text-xl font-bold mb-2">Advanced Python Techniques</h3>
+                            <h3 class="text-xl font-bold mb-2">Advanced
+                                Python Techniques</h3>
                             <p class="text-sm">Enhance your
-                                <strong class="text-purple-400 font-bold">coding skills</strong>
+                                <strong class="text-purple-400 font-bold">coding
+                                    skills</strong>
                                 with advanced Python concepts.
                             </p>
                         </div>
@@ -674,9 +693,11 @@
                             alt="Python Project Showcase">
                         <div
                             class="slide-content absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
-                            <h3 class="text-xl font-bold mb-2">Project Showcase</h3>
+                            <h3 class="text-xl font-bold mb-2">Project
+                                Showcase</h3>
                             <p class="text-sm">Explore amazing projects
-                                built with <strong class="text-blue-400 font-bold">Python</strong> in our CLI.
+                                built with <strong class="text-blue-400 font-bold">Python</strong>
+                                in our CLI.
                             </p>
                         </div>
                     </div>
@@ -685,7 +706,8 @@
                             alt="Python Community">
                         <div
                             class="slide-content absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
-                            <h3 class="text-xl font-bold mb-2">Join the Community</h3>
+                            <h3 class="text-xl font-bold mb-2">Join the
+                                Community</h3>
                             <p class="text-sm">
                                 <strong>
                                     <a href="https://linktr.ee/tanbaycu" target="_blank"
@@ -701,9 +723,11 @@
                         <img src="https://i.postimg.cc/dt4t11VP/image.png" alt="Python for Data Science">
                         <div
                             class="slide-content absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
-                            <h3 class="text-xl font-bold mb-2">Frontend Development</h3>
+                            <h3 class="text-xl font-bold mb-2">Frontend
+                                Development</h3>
                             <p class="text-sm">Working with
-                                <strong class="text-yellow-400 font-bold">HTML</strong> and
+                                <strong class="text-yellow-400 font-bold">HTML</strong>
+                                and
                                 <strong class="text-blue-400 font-bold">TailwindCSS</strong>
                                 for best UI/UX templates.
                             </p>
@@ -713,7 +737,8 @@
                         <img src="https://i.postimg.cc/HxyV8CP0/image.png" alt="Web Development with Python">
                         <div
                             class="slide-content absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
-                            <h3 class="text-xl font-bold mb-2">Web Development</h3>
+                            <h3 class="text-xl font-bold mb-2">Web
+                                Development</h3>
                             <p class="text-sm">Build powerful web
                                 applications using <strong class="text-green-400 font-bold">Flask</strong>.
                             </p>
@@ -748,7 +773,8 @@
                     <p class="text-gray-600 text-center">
                         <span
                             class="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text font-bold hover:from-purple-500 hover:to-blue-500 transition-all duration-500 drop-shadow-lg hover:drop-shadow-xl animate-pulse">
-                            Write and execute Python code in real-time with instant feedback.
+                            Write and execute Python code in real-time with
+                            instant feedback.
                         </span>
                     </p>
                 </div>
@@ -766,7 +792,8 @@
                     <p class="text-gray-600 text-center">
                         <span
                             class="bg-gradient-to-r from-orange-500 to-red-500 text-transparent bg-clip-text font-bold hover:from-red-500 hover:to-orange-500 transition-all duration-500 drop-shadow-lg hover:drop-shadow-xl animate-bounce">
-                            Lightning-fast code execution with optimized performance.
+                            Lightning-fast code execution with optimized
+                            performance.
                         </span>
                     </p>
                 </div>
@@ -784,7 +811,8 @@
                     <p class="text-gray-600 text-center">
                         <span
                             class="bg-gradient-to-r from-teal-500 to-cyan-500 text-transparent bg-clip-text font-bold hover:from-cyan-500 hover:to-teal-500 transition-all duration-500 drop-shadow-lg hover:drop-shadow-xl">
-                            Share your code snippets easily with other developers.
+                            Share your code snippets easily with other
+                            developers.
                         </span>
                     </p>
                 </div>
@@ -815,7 +843,8 @@
         </div>
 
         <div id="user-guide" class="w-full max-w-4xl bg-white p-8 rounded-xl shadow-lg mt-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">Hướng Dẫn Sử Dụng</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Hướng Dẫn Sử
+                Dụng</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Viết Mã Section -->
@@ -828,14 +857,18 @@
                         </svg>
                         Viết Mã
                     </h3>
-                    <p class="text-gray-700 mb-4">Sử dụng trình soạn thảo mã để viết mã Python của bạn. Trình soạn thảo
-                        hỗ trợ tô sáng cú pháp và tự động hoàn thành để giúp việc lập trình dễ dàng hơn.</p>
+                    <p class="text-gray-700 mb-4">Sử dụng trình soạn thảo mã
+                        để viết mã Python của bạn. Trình soạn thảo hỗ trợ tô
+                        sáng cú pháp và tự động hoàn thành để giúp việc lập
+                        trình dễ dàng hơn.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-2">
-                        <li>Nhập mã Python của bạn vào khu vực chính của trình soạn thảo</li>
-                        <li>Sử dụng <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl + Space</kbd> để gợi ý tự động hoàn
-                            thành</li>
-                        <li>Sử dụng <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl + /</kbd> hoặc <kbd
-                                class="bg-gray-200 px-2 py-1 rounded">Cmd + /</kbd> để comment/uncomment dòng</li>
+                        <li>Nhập mã Python của bạn vào khu vực chính của
+                            trình soạn thảo</li>
+                        <li>Sử dụng <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl +
+                                Space</kbd> để gợi ý tự động hoàn thành</li>
+                        <li>Sử dụng <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl +
+                                /</kbd> hoặc <kbd class="bg-gray-200 px-2 py-1 rounded">Cmd +
+                                /</kbd> để comment/uncomment dòng</li>
                     </ul>
                 </div>
 
@@ -852,12 +885,15 @@
                         </svg>
                         Chạy Mã Của Bạn
                     </h3>
-                    <p class="text-gray-700 mb-4">Thực thi mã Python của bạn và xem kết quả ngay lập tức.</p>
+                    <p class="text-gray-700 mb-4">Thực thi mã Python của bạn
+                        và xem kết quả ngay lập tức.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-2">
                         <li>Nhấp vào nút "Chạy" hoặc sử dụng <kbd class="bg-gray-200 px-2 py-1 rounded">Ctrl +
                                 Enter</kbd> để thực thi mã của bạn</li>
-                        <li>Kết quả sẽ xuất hiện trong phần "Kết quả" bên dưới trình soạn thảo</li>
-                        <li>Nếu mã của bạn có lỗi, chúng sẽ được hiển thị bằng màu đỏ trong khu vực kết quả</li>
+                        <li>Kết quả sẽ xuất hiện trong phần "Kết quả" bên
+                            dưới trình soạn thảo</li>
+                        <li>Nếu mã của bạn có lỗi, chúng sẽ được hiển thị
+                            bằng màu đỏ trong khu vực kết quả</li>
                     </ul>
                 </div>
 
@@ -874,14 +910,17 @@
                         </svg>
                         Tùy Chọn Nâng Cao
                     </h3>
-                    <p class="text-gray-700 mb-4">Tùy chỉnh trải nghiệm lập trình của bạn với các tính năng nâng cao.
-                    </p>
+                    <p class="text-gray-700 mb-4">Tùy chỉnh trải nghiệm lập
+                        trình của bạn với các tính năng nâng cao.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-2">
-                        <li>Nhấp vào nút "Cài đặt" để truy cập các tùy chọn nâng cao</li>
-                        <li>Bật "Yêu cầu nhập từ bàn phím" nếu mã của bạn cần đầu vào từ người dùng</li>
-                        <li>Sử dụng khu vực nhập văn bản để cung cấp nhiều giá trị đầu vào, mỗi giá trị trên một dòng
-                        </li>
-                        <li>Kiểm tra danh sách các thư viện đã cài đặt sẵn mà bạn có thể sử dụng trong mã của mình</li>
+                        <li>Nhấp vào nút "Cài đặt" để truy cập các tùy chọn
+                            nâng cao</li>
+                        <li>Bật "Yêu cầu nhập từ bàn phím" nếu mã của bạn
+                            cần đầu vào từ người dùng</li>
+                        <li>Sử dụng khu vực nhập văn bản để cung cấp nhiều
+                            giá trị đầu vào, mỗi giá trị trên một dòng</li>
+                        <li>Kiểm tra danh sách các thư viện đã cài đặt sẵn
+                            mà bạn có thể sử dụng trong mã của mình</li>
                     </ul>
                 </div>
 
@@ -896,13 +935,19 @@
                         </svg>
                         Tính Năng Bổ Sung
                     </h3>
-                    <p class="text-gray-700 mb-4">Khám phá các tính năng hữu ích khác của playground.</p>
+                    <p class="text-gray-700 mb-4">Khám phá các tính năng hữu
+                        ích khác của playground.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-2">
-                        <li>Sử dụng nút "Xóa" để đặt lại trình soạn thảo và kết quả</li>
-                        <li>Nhấp "Lưu" để tải xuống mã của bạn dưới dạng tệp .py</li>
-                        <li>Chia sẻ mã của bạn với người khác bằng nút "Chia sẻ"</li>
-                        <li>Chuyển đổi giữa chủ đề sáng và tối bằng nút chủ đề</li>
-                        <li>Vào chế độ toàn màn hình để có trải nghiệm lập trình không bị phân tâm</li>
+                        <li>Sử dụng nút "Xóa" để đặt lại trình soạn thảo và
+                            kết quả</li>
+                        <li>Nhấp "Lưu" để tải xuống mã của bạn dưới dạng tệp
+                            .py</li>
+                        <li>Chia sẻ mã của bạn với người khác bằng nút
+                            "Chia sẻ"</li>
+                        <li>Chuyển đổi giữa chủ đề sáng và tối bằng nút chủ
+                            đề</li>
+                        <li>Vào chế độ toàn màn hình để có trải nghiệm lập
+                            trình không bị phân tâm</li>
                     </ul>
                 </div>
             </div>
@@ -918,17 +963,21 @@
                     </svg>
                     Mẹo Sử Dụng Hiệu Quả
                 </h3>
-                <p class="text-gray-700 mb-4">Các mẹo để tận dụng tối đa Python CLI.</p>
+                <p class="text-gray-700 mb-4">Các mẹo để tận dụng tối đa
+                    Python CLI.</p>
                 <ul class="list-disc list-inside text-gray-600 space-y-2">
-                    <li>Bắt đầu với các đoạn mã nhỏ và dần dần xây dựng các chương trình phức tạp hơn</li>
-                    <li>Sử dụng comments để giải thích mã của bạn và làm cho nó dễ hiểu hơn</li>
-                    <li>Thử nghiệm với các thư viện Python khác nhau để mở rộng khả năng lập trình của bạn</li>
-                    <li>Lưu mã của bạn thường xuyên để tránh mất công việc</li>
-                    <li>Sử dụng tính năng chia sẻ để nhận trợ giúp hoặc cộng tác với người khác</li>
+                    <li>Bắt đầu với các đoạn mã nhỏ và dần dần xây dựng các
+                        chương trình phức tạp hơn</li>
+                    <li>Sử dụng comments để giải thích mã của bạn và làm cho
+                        nó dễ hiểu hơn</li>
+                    <li>Thử nghiệm với các thư viện Python khác nhau để mở
+                        rộng khả năng lập trình của bạn</li>
+                    <li>Lưu mã của bạn thường xuyên để tránh mất công
+                        việc</li>
+                    <li>Sử dụng tính năng chia sẻ để nhận trợ giúp hoặc cộng
+                        tác với người khác</li>
                 </ul>
             </div>
-
-
         </div>
         <button id="github-button" href="https://github.com/tanbaycu/pythonCLI-webapp"
             class="flex overflow-hidden items-center text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-black text-white shadow hover:bg-black/90 h-9 px-4 py-2 max-w-52 whitespace-pre md:flex group relative w-full justify-center gap-2 rounded-md transition-all duration-300 ease-out hover:ring-2 hover:ring-black hover:ring-offset-2">
@@ -954,6 +1003,7 @@
             </div>
         </button>
 
+
         <!-- Footer -->
         <footer class="mt-8 text-center text-white text-sm">
             <p>&copy; 2025 | Powered by <a href="https://linktr.ee/tanbaycu" target="_blank"
@@ -972,6 +1022,7 @@
         </div>
     </div>
 
+
     <!-- Add smooth scroll behavior -->
     <script>
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -985,6 +1036,87 @@
         document.getElementById('github-button').addEventListener('dblclick', function () {
             window.location.href = this.getAttribute('href');
         });
+        const alerts = [
+            {
+                type: "success",
+                message: "✔️Success - Everything went smoothly!",
+                iconColor: "text-green-600",
+                bgColor: "bg-green-100",
+                borderColor: "border-green-500",
+                textColor: "text-green-900",
+                iconPath: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            },
+            {
+                type: "info",
+                message: "✨Info - This is some information for you.",
+                iconColor: "text-blue-600",
+                bgColor: "bg-blue-100",
+                borderColor: "border-blue-500",
+                textColor: "text-blue-900",
+                iconPath: "M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            },
+            {
+                type: "warning",
+                message: "🔔Warning - Be careful with this next step.",
+                iconColor: "text-yellow-600",
+                bgColor: "bg-yellow-100",
+                borderColor: "border-yellow-500",
+                textColor: "text-yellow-900",
+                iconPath: "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" // Biểu tượng warning
+            },
+            {
+                type: "error",
+                message: "🚨Error - Something went wrong.",
+                iconColor: "text-red-600",
+                bgColor: "bg-red-100",
+                borderColor: "border-red-500",
+                textColor: "text-red-900",
+                iconPath: "M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" // Biểu tượng error
+            }
+        ];
+
+        const alertContainer = document.getElementById("alert-container");
+        let currentIndex = 0;
+
+        function showNextAlert() {
+            // Xóa nội dung hiện tại
+            alertContainer.innerHTML = "";
+
+            // Lấy alert hiện tại
+            const alert = alerts[currentIndex];
+
+            // Tạo phần tử alert
+            const alertElement = document.createElement("div");
+            alertElement.setAttribute("role", "alert");
+            alertElement.className = `${alert.bgColor} border-l-4 ${alert.borderColor} ${alert.textColor} p-2 rounded-lg flex items-center transition duration-300 ease-in-out hover:${alert.bgColor.replace("100", "200")} transform hover:scale-105`;
+
+            // Thêm icon
+            const icon = document.createElement("svg");
+            icon.setAttribute("stroke", "currentColor");
+            icon.setAttribute("viewBox", "0 0 24 24");
+            icon.setAttribute("fill", "none");
+            icon.className = `h-5 w-5 flex-shrink-0 mr-2 ${alert.iconColor}`;
+            icon.innerHTML = `<path stroke-width="2" stroke-linejoin="round" stroke-linecap="round" d="${alert.iconPath}"></path>`;
+            alertElement.appendChild(icon);
+
+            // Thêm văn bản
+            const text = document.createElement("p");
+            text.className = "text-xs font-semibold";
+            text.textContent = alert.message;
+            alertElement.appendChild(text);
+
+            // Thêm alert vào container
+            alertContainer.appendChild(alertElement);
+
+            // Cập nhật chỉ số cho alert tiếp theo
+            currentIndex = (currentIndex + 1) % alerts.length;
+        }
+
+        // Hiển thị alert đầu tiên
+        showNextAlert();
+
+        // Tự động chuyển đổi alert mỗi 5 giây
+        setInterval(showNextAlert, 5000);
     </script>
     <script>
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
