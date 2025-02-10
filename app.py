@@ -52,7 +52,7 @@ ALLOWED_MODULES = {
 }
 
 # Thêm cấu hình cho Gemini API
-API_KEY = "AIzaSyDjUan7t5sKlJhda_OEfTUenYgoH2TknVY"
+API_KEY = "AIzaSyC3fwMEUinKhwstb5MYDtZzrB1jnjp4ApE"
 API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent"
 SYSTEM_PROMPT = "Bạn là trợ lý ảo được tanbaycu phát triển và được tích hợp sẵn vào web Python CLI để hỗ trợ mọi thắc mắc từ người dùng. Hãy trở lại ngắn gọn, tập trung thằng vào vấn đề, tránh nói lang mang, gây khó hiểu. Hãy sử dụng icon để thể hiện cảm xúc, tích cực hỗ trợ hết mình cho người dùng lập trình."
 
