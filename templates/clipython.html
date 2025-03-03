@@ -4,14 +4,68 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Python Web IDE - Professional Edition</title>
+
+    <!-- Primary Meta Tags -->
+    <title>Python Web IDE - Professional Online Python Code Editor</title>
+    <meta name="title" content="Python Web IDE - Professional Online Python Code Editor">
+    <meta name="description"
+        content="Experience a powerful, professional-grade Python Web IDE with real-time code execution, AI assistance, and collaborative features. Perfect for beginners and experts alike.">
+    <meta name="keywords" content="Python, Web IDE, Code Editor, Online Programming, AI-assisted Coding, Learn Python">
+    <meta name="author" content="Tanbaycu">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://minhtan.is-a.dev/">
+    <meta property="og:title" content="Python Web IDE - Professional Online Python Code Editor">
+    <meta property="og:description"
+        content="Experience a powerful, professional-grade Python Web IDE with real-time code execution, AI assistance, and collaborative features. Perfect for beginners and experts alike.">
+    <meta property="og:image" content="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://minhtan.is-a.dev/">
+    <meta property="twitter:title" content="Python Web IDE - Professional Online Python Code Editor">
+    <meta property="twitter:description"
+        content="Experience a powerful, professional-grade Python Web IDE with real-time code execution, AI assistance, and collaborative features. Perfect for beginners and experts alike.">
+    <meta property="twitter:image" content="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://minhtan.is-a.dev/">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Python Web IDE",
+      "url": "https://minhtan.is-a.dev/",
+      "description": "A professional-grade online Python code editor with real-time execution, AI assistance, and collaborative features.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Tanbaycu"
+      }
+    }
+    </script>
+
+    <!-- Existing style and script tags -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.2/marked.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/nord.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="https://i.postimg.cc/R0NfXPH8/Thi-t-k-ch-a-c-t-n-12.png" />
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap");
 
@@ -936,10 +990,10 @@
         function showToast(message, type = "info") {
             const toast = document.createElement("div");
             toast.className = `p-3 rounded-lg shadow-lg ${type === "success"
-                    ? "bg-green-600"
-                    : type === "error"
-                        ? "bg-red-600"
-                        : "bg-blue-600"
+                ? "bg-green-600"
+                : type === "error"
+                    ? "bg-red-600"
+                    : "bg-blue-600"
                 } text-white`;
             toast.textContent = message;
             const notificationArea = document.getElementById("notificationArea");
@@ -1032,7 +1086,7 @@
                     });
                     const result = await response.json();
                     if (result.share_url) {
-                        const shareUrl = `https://python-cli-webapp.vercel.app${result.share_url}`;
+                        const shareUrl = `https://minhtan.is-a.dev${result.share_url}`;
                         showShareModal(shareUrl);
                     } else {
                         showToast("Có lỗi xảy ra khi chia sẻ mã.", "error");
@@ -1352,7 +1406,7 @@
         });
 
         aiSendBtn.addEventListener("click", sendAIMessage);
-        aiInput.addEventListener("keydown", function(event) {
+        aiInput.addEventListener("keydown", function (event) {
             if (event.key === "Enter") {
                 event.preventDefault();
                 sendAIMessage();
@@ -1372,7 +1426,7 @@
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({ 
+                    body: JSON.stringify({
                         message: userMessage,
                         history: chatHistory
                     })
@@ -1415,11 +1469,11 @@
         function appendMessage(type, content) {
             const messageElement = document.createElement("div");
             messageElement.className = `message ${type}-message`;
-            
+
             const contentElement = document.createElement("div");
             contentElement.className = "message-content";
             contentElement.innerHTML = marked.parse(content);
-            
+
             messageElement.appendChild(contentElement);
             aiOutput.appendChild(messageElement);
 
@@ -1430,7 +1484,7 @@
         function toggleAIFullscreen() {
             const aiContent = document.getElementById('aiContent');
             isAIFullscreen = !isAIFullscreen;
-            
+
             if (isAIFullscreen) {
                 aiContent.classList.add('ai-fullscreen');
                 document.body.style.overflow = 'hidden';
@@ -1485,4 +1539,3 @@ for i in range(10):
 </body>
 
 </html>
-
